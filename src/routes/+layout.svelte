@@ -1,6 +1,27 @@
 <script lang="ts">
     import { selectedCalendarType } from './stores';
     import 'bootstrap-icons/font/bootstrap-icons.css';
+    import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
+    import { onMount } from 'svelte';
+
+    let isInitialized = false;
+
+    // Handle initial navigation only once
+    onMount(() => {
+        if (!isInitialized && $page.url.pathname === '/') {
+            isInitialized = true;
+            goto('/school?fl=all', { replaceState: true });
+        }
+    });
+
+    // Handle calendar type changes without causing loops
+    function handleCalendarChange(newType: string) {
+        const filter = $page.url.searchParams.get('fl') || 'all';
+        if ($page.url.pathname !== `/${newType}`) {
+            goto(`/${newType}?fl=${filter}`, { replaceState: true });
+        }
+    }
 </script>
 
 <nav class="header-nav">
@@ -9,16 +30,22 @@
     <div class="nav-right">
         <a href="/api-docs" class="api-link">
             <i class="bi bi-file-text"></i>
-            API Docs
+            API
         </a>
-        <a href="https://github.com/yourusername/your-repo" target="_blank" rel="noopener noreferrer" class="github-link">
+        <a href="https://github.com/h4fide/Vacance-Scolaire" target="_blank" rel="noopener noreferrer" class="github-link">
             <i class="bi bi-github"></i>
             GitHub</a>
     </div>
 </nav>
 
 <div class="calendar-type-selector">
-    <select bind:value={$selectedCalendarType}>
+    <select 
+        value={$selectedCalendarType} 
+        on:change={(e) => {
+            $selectedCalendarType = e.currentTarget.value;
+            handleCalendarChange(e.currentTarget.value);
+        }}
+    >
         <option value="school">School Calendar</option>
         <option value="university">University Calendar</option>
         <option value="ofppt">OFPPT Calendar</option>

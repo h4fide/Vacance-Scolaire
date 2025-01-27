@@ -5,6 +5,8 @@
     import schoolCalendar from '../database/Calendrier_Scolaire.json';
     import universityCalendar from '../database/Calendrier_Universitaire.json';
     import ofpptCalendar from '../database/Calendrier _OFPPT.json';
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
     
     $: calendarData = {
         school: schoolCalendar as SchoolAndUniversityEvent[],
@@ -18,6 +20,7 @@
     }
 
     const today = new Date();
+    
     
     // Helper function to handle plural days with proper typing
     function getDaysText(days: string | number): string {
@@ -129,6 +132,23 @@
             return days === 1 ? 'Yesterday' : `${days} days ago`;
         } catch (error) {
             return 'Date error';
+        }
+    }
+
+    // Sync filter with URL parameter
+    $: {
+        const urlFilter = $page.url.searchParams.get('fl');
+        if (urlFilter && ['all', 'current', 'past'].includes(urlFilter)) {
+            selectedFilter = urlFilter;
+        }
+    }
+
+    // Update URL when filter changes
+    $: {
+        if (selectedFilter) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('fl', selectedFilter);
+            goto(url.toString(), { replaceState: true });
         }
     }
 </script>
