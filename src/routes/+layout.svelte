@@ -24,7 +24,7 @@
     <div class="nav-left">
     </div>
     <div class="nav-right">
-        <a href="/api-docs" class="api-link">
+        <a href="/docs" class="api-link">
             <i class="bi bi-file-text"></i>
             API
         </a>
