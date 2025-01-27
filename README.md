@@ -25,7 +25,7 @@ GET /api/general           # General school
 GET /api/university        # University 
 GET /api/ofppt             # OFPPT 
 ```
-### See thee [API Examples](api_examples\api_documentation.md) for more examples.
+### See thee [API Examples](api_examples/api_documentation.md) for more examples.
 
 
 ## Contributing
