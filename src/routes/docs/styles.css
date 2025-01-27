@@ -82,6 +82,30 @@
     border-radius: 6px;
     overflow-x: auto;
     margin: 1rem 0;
+    position: relative;  /* Add this */
+}
+
+/* Add new styles */
+.copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: #e9ecef;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.copy-button.copied {
+    background: #198754;
 }
 
 .response-example {
@@ -157,6 +181,15 @@
         white-space: pre-wrap;
         word-break: break-all;
     }
+
+    .language-selector {
+        gap: 0.3rem;
+    }
+
+    .lang-button {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -205,4 +238,38 @@
     .endpoint-description {
         font-size: 0.95rem;
     }
+}
+
+.language-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.lang-button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.2s;
+}
+
+.lang-button:hover {
+    background: var(--border-color);
+}
+
+.lang-button.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.code-block code {
+    white-space: pre;
+    display: block;
+    padding-right: 2rem;
 }
