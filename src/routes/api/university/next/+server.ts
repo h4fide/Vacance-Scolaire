@@ -1,7 +1,7 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import schoolCalendar from '../../../database/Calendrier_Scolaire.json';
+import universityCalendar from '../../../../database/Calendrier_Universitaire.json';
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -10,7 +10,12 @@ const corsHeaders = {
 };
 
 export const GET: RequestHandler = async () => {
-    return json(schoolCalendar, {
+    const today = new Date();
+    const nextEvent = universityCalendar
+        .filter(event => new Date(event.start_date) > today)
+        .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())[0];
+
+    return json(nextEvent || null, {
         headers: corsHeaders
     });
 };

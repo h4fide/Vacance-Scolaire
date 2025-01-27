@@ -96,88 +96,67 @@ puts data`
     const endpoints = [
         {
             method: 'GET',
-            path: '/',
+            path: '/api',
             description: 'Get API information and available endpoints',
             example: `${baseUrl}`
         },
         {
             method: 'GET',
-            path: '/general',
+            path: '/api/general',
             description: 'Get all general calendar events',
             example: `${baseUrl}/general`
         },
         {
             method: 'GET',
-            path: '/general/next',
+            path: '/api/general/next',
             description: 'Get the next upcoming general event',
             example: `${baseUrl}/general/next`
         },
         {
             method: 'GET',
-            path: '/general/upcoming',
+            path: '/api/general/upcoming',
             description: 'Get all upcoming general events',
             example: `${baseUrl}/general/upcoming`
         },
         {
             method: 'GET',
-            path: '/university',
+            path: '/api/university',
             description: 'Get all university calendar events',
             example: `${baseUrl}/university`
         },
         {
             method: 'GET',
-            path: '/university/next',
+            path: '/api/university/next',
             description: 'Get the next upcoming university event',
             example: `${baseUrl}/university/next`
         },
         {
             method: 'GET',
-            path: '/university/upcoming',
+            path: '/api/university/upcoming',
             description: 'Get all upcoming university events',
             example: `${baseUrl}/university/upcoming`
         },
         {
             method: 'GET',
-            path: '/ofppt',
+            path: '/api/ofppt',
             description: 'Get all OFPPT calendar events',
             example: `${baseUrl}/ofppt`
         },
         {
             method: 'GET',
-            path: '/ofppt/next',
+            path: '/api/ofppt/next',
             description: 'Get the next upcoming OFPPT event',
             example: `${baseUrl}/ofppt/next`
         },
         {
             method: 'GET',
-            path: '/ofppt/upcoming',
+            path: '/api/ofppt/upcoming',
             description: 'Get all upcoming OFPPT events',
             example: `${baseUrl}/ofppt/upcoming`
         }
     ];
 
-    const exampleResponses = {
-        base: {
-            message: 'Welcome to the Vacances Scolaires API',
-            endpoints: {
-                general: {
-                    all: '/api/general',
-                    next: '/api/general/next',
-                    upcoming: '/api/general/upcoming'
-                }
-                // ... other endpoints
-            }
-        },
-        calendar: [
-            {
-                "_id": 1,
-                "eventname": "Winter Break",
-                "start_date": "2024-01-21",
-                "end_date": "2024-01-28",
-                "days_number": 7
-            }
-        ]
-    };
+
 </script>
 
 <main class="docs-container">

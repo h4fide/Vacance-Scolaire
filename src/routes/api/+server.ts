@@ -1,10 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import schoolCalendar from '../../database/Calendrier_Scolaire.json';
-import universityCalendar from '../../database/Calendrier_Universitaire.json';
-import ofpptCalendar from '../../database/Calendrier _OFPPT.json';
 
-// CORS headers for all responses
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -15,10 +11,10 @@ export const GET: RequestHandler = async () => {
     return json({
         message: 'Welcome to the Vacances Scolaires API',
         endpoints: {
-            school: {
-                all: '/api/school',
-                next: '/api/school/next',
-                upcoming: '/api/school/upcoming'
+            general: {
+                all: '/api/general',
+                next: '/api/general/next',
+                upcoming: '/api/general/upcoming'
             },
             university: {
                 all: '/api/university',
