@@ -57,7 +57,8 @@
 
     // Sort and categorize events
     $: events = {
-        past: calendarData.filter(event => new Date(event.end_date) < today),
+        past: calendarData.filter(event => new Date(event.end_date) < today)
+            .sort((a, b) => new Date(b.end_date).getTime() - new Date(a.end_date).getTime()), // Changed to descending order
         current: calendarData.filter(event => 
             new Date(event.start_date) <= today && new Date(event.end_date) >= today
         ),
@@ -106,15 +107,30 @@
     let selectedFilter = 'all';
     
     $: filteredEvents = () => {
+        const currentAndUpcoming = [...events.current, ...events.upcoming];
+        const past = events.past;
+        
         switch(selectedFilter) {
             case 'current':
-                return [...events.current, ...events.upcoming];
+                return { currentAndUpcoming, past: [] };
             case 'past':
-                return events.past;
+                return { currentAndUpcoming: [], past };
             default:
-                return [...events.current, ...events.upcoming, ...events.past];
+                return { currentAndUpcoming, past };
         }
     };
+
+    // Add this new helper function
+    function getDaysAgo(endDate: string): string {
+        try {
+            const end = new Date(endDate);
+            const diff = today.getTime() - end.getTime();
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            return days === 1 ? 'Yesterday' : `${days} days ago`;
+        } catch (error) {
+            return 'Date error';
+        }
+    }
 </script>
 
 <main>
@@ -169,20 +185,40 @@
                 </tr>
             </thead>
             <tbody>
-                {#each filteredEvents() as event}
-                    <tr class={new Date(event.end_date) < today ? 'past-event' : 
-                             new Date(event.start_date) <= today && new Date(event.end_date) >= today ? 'current-event' : ''}>
+                {#each filteredEvents().currentAndUpcoming as event}
+                    <tr class={new Date(event.start_date) <= today && new Date(event.end_date) >= today ? 'current-event' : ''}>
                         <td>{getEventName(event)}</td>
                         <td>{formatDateRange(event.start_date, event.end_date)}</td>
                         <td>{getDaysText(event.days_number)}</td>
                         <td>
-                            {#if new Date(event.end_date) < today}
-                                <span class="status past">Past</span>
-                            {:else if new Date(event.start_date) <= today && new Date(event.end_date) >= today}
+                            {#if new Date(event.start_date) <= today && new Date(event.end_date) >= today}
                                 <span class="status current">Current</span>
                             {:else}
                                 <span class="status upcoming">{getRemainingDays(event.start_date)}</span>
                             {/if}
+                        </td>
+                    </tr>
+                {/each}
+
+                {#if filteredEvents().currentAndUpcoming.length > 0 && filteredEvents().past.length > 0}
+                    <tr class="separator">
+                        <td colspan="4">
+                            <div class="dots">
+                                <span>•</span>
+                                <span>•</span>
+                                <span>•</span>
+                            </div>
+                        </td>
+                    </tr>
+                {/if}
+
+                {#each filteredEvents().past as event}
+                    <tr class="past-event">
+                        <td>{getEventName(event)}</td>
+                        <td>{formatDateRange(event.start_date, event.end_date)}</td>
+                        <td>{getDaysText(event.days_number)}</td>
+                        <td>
+                            <span class="status past">{getDaysAgo(event.end_date)}</span>
                         </td>
                     </tr>
                 {/each}
@@ -252,5 +288,30 @@
         border-radius: 4px;
         font-size: 1rem;
         background-color: white;
+    }
+
+    .separator {
+        background: transparent;
+    }
+
+    .dots {
+        text-align: center;
+        padding: 1rem;
+        color: #666;
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+    }
+
+    .separator td {
+        border-bottom: none;
+    }
+
+    tbody tr:not(.separator):hover {
+        background-color: #f8f9fa;
+        transition: background-color 0.2s ease;
+    }
+
+    .past-event {
+        opacity: 0.8;
     }
 </style>
