@@ -1,0 +1,102 @@
+[
+    {
+      "id": "1",
+      "event_name": "عيد المولد النبوي الشريف",
+      "start_date": "2024-09-25",
+      "end_date": "2024-09-26",
+      "days_number": 2
+    },
+    {
+      "id": "2",
+      "event_name": "ذكرى المسيرة الخضراء",
+      "start_date": "2024-11-06",
+      "end_date": "2024-11-06",
+      "days_number": 1
+    },
+    {
+      "id": "3",
+      "event_name": "عيد الاستقلال",
+      "start_date": "2024-11-18",
+      "end_date": "2024-11-18",
+      "days_number": 1
+    },
+    {
+      "id": "4",
+      "event_name": "عطلة الطور الأول",
+      "start_date": "2024-12-08",
+      "end_date": "2024-12-15",
+      "days_number": 8
+    },
+    {
+      "id": "5",
+      "event_name": "فاتح يناير",
+      "start_date": "2025-01-01",
+      "end_date": "2025-01-01",
+      "days_number": 1
+    },
+    {
+      "id": "6",
+      "event_name": "ذكرى تقديم وثيقة الاستقلال",
+      "start_date": "2025-01-11",
+      "end_date": "2025-01-11",
+      "days_number": 1
+    },
+    {
+      "id": "7",
+      "event_name": "عطلة رأس السنة الأمازيغية",
+      "start_date": "2025-01-14",
+      "end_date": "2025-01-14",
+      "days_number": 1
+    },
+    {
+      "id": "8",
+      "event_name": "عطلة منتصف السنة التكوينية",
+      "start_date": "2025-01-26",
+      "end_date": "2025-02-02",
+      "days_number": 8
+    },
+    {
+      "id": "9",
+      "event_name": "عطلة الطور الثاني",
+      "start_date": "2025-03-16",
+      "end_date": "2025-03-23",
+      "days_number": 8
+    },
+    {
+      "id": "10",
+      "event_name": "عيد الفطر",
+      "start_date": "2025-03-29",
+      "end_date": "2025-04-02",
+      "days_number": 4
+    },
+    {
+      "id": "11",
+      "event_name": "عيد الشغل",
+      "start_date": "2025-05-01",
+      "end_date": "2025-05-01",
+      "days_number": 1
+    },
+    {
+      "id": "12",
+      "event_name": "عطلة الطور الثالث",
+      "start_date": "2025-05-04",
+      "end_date": "2025-05-11",
+      "days_number": 8
+    },
+    {
+      "id": "13",
+      "event_name": "عيد الأضحى",
+      "start_date": "2025-06-06",
+      "end_date": "2025-06-09",
+      "days_number": 4
+    },
+    {
+      "id": "14",
+      "event_name": "فاتح محرم",
+      "start_date": "2025-07-30",
+      "end_date": "2025-07-30",
+      "days_number": 1
+    }
+  ]
+  
+  

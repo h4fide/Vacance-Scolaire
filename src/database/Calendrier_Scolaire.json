@@ -1,0 +1,107 @@
+[
+  {
+      "_id": 1,
+      "eventname": "عيد المولد النبوي",
+      "start_date": "2024-09-04",
+      "end_date": "2024-09-05",
+      "days_number": 2
+  },
+  {
+      "_id": 2,
+      "eventname": "العطلة النصفية الأولى",
+      "start_date": "2024-10-20",
+      "end_date": "2024-10-27",
+      "days_number": 8
+  },
+  {
+      "_id": 3,
+      "eventname": "المسيرة الخضراء",
+      "start_date": "2024-11-06",
+      "end_date": "2024-11-06",
+      "days_number": 1
+  },
+  {
+      "_id": 4,
+      "eventname": "عيد الاستقلال",
+      "start_date": "2024-11-18",
+      "end_date": "2024-11-18",
+      "days_number": 1
+  },
+  {
+      "_id": 5,
+      "eventname": "العطلة النصفية الثانية",
+      "start_date": "2024-12-08",
+      "end_date": "2024-12-15",
+      "days_number": 8
+  },
+  {
+      "_id": 6,
+      "eventname": "رأس السنة الميلادية",
+      "start_date": "2025-01-01",
+      "end_date": "2025-01-01",
+      "days_number": 1
+  },
+  {
+      "_id": 7,
+      "eventname": "ذكرى تقديم وثيقة الاستقلال",
+      "start_date": "2025-01-11",
+      "end_date": "2025-01-11",
+      "days_number": 1
+  },
+  {
+      "_id": 8,
+      "eventname": "رأس السنة الأمازيغية",
+      "start_date": "2025-01-14",
+      "end_date": "2025-01-14",
+      "days_number": 1
+  },
+  {
+      "_id": 9,
+      "eventname": "العطلة البينية",
+      "start_date": "2025-01-26",
+      "end_date": "2025-02-02",
+      "days_number": 8
+  },
+  {
+      "_id": 10,
+      "eventname": "العطلة النصفية الثالثة",
+      "start_date": "2025-03-16",
+      "end_date": "2025-03-23",
+      "days_number": 8
+  },
+  {
+      "_id": 11,
+      "eventname": "عيد الفطر",
+      "start_date": "2025-04-27",
+      "end_date": "2025-04-30",
+      "days_number": "3-4"
+  },
+  {
+      "_id": 12,
+      "eventname": "عيد العمال",
+      "start_date": "2025-05-01",
+      "end_date": "2025-05-01",
+      "days_number": 1
+  },
+  {
+      "_id": 13,
+      "eventname": "العطلة النصفية الرابعة",
+      "start_date": "2025-05-04",
+      "end_date": "2025-05-11",
+      "days_number": 8
+  },
+  {
+      "_id": 14,
+      "eventname": "عيد الأضحى",
+      "start_date": "2025-06-06",
+      "end_date": "2025-06-08",
+      "days_number": 3
+  },
+  {
+      "_id": 15,
+      "eventname": "فاتح محرم",
+      "start_date": "2025-07-07",
+      "end_date": "2025-07-07",
+      "days_number": 1
+  }
+]
