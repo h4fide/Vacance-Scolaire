@@ -1,4 +1,4 @@
-# Vacances Scolaires API
+# Vacances Scolaires Maroc
 
 `EN` An API and web interface for accessing school holiday schedules in Morocco, including general education, university, and OFPPT calendars.
 >
