@@ -2,7 +2,8 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = ({ url }) => {
     if (url.pathname === '/') {
-        throw redirect(307, '/school?fl=all');
+        // Default redirect if no stored URL (server-side)
+        return { redirect: true };
     }
     return {};
 };

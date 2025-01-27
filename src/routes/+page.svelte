@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onDestroy } from 'svelte';
-    import { selectedCalendarType } from './stores';
+    import { selectedCalendarType, selectedFilter, updateStoredUrl } from './stores';
     import type { CalendarEvent, SchoolAndUniversityEvent, OFPPTEvent } from './types';
     import schoolCalendar from '../database/Calendrier_Scolaire.json';
     import universityCalendar from '../database/Calendrier_Universitaire.json';
@@ -107,13 +107,11 @@
         }, 1000);
     }
 
-    let selectedFilter = 'all';
-    
     $: filteredEvents = () => {
         const currentAndUpcoming = [...events.current, ...events.upcoming];
         const past = events.past;
         
-        switch(selectedFilter) {
+        switch($selectedFilter) {
             case 'current':
                 return { currentAndUpcoming, past: [] };
             case 'past':
@@ -139,17 +137,16 @@
     $: {
         const urlFilter = $page.url.searchParams.get('fl');
         if (urlFilter && ['all', 'current', 'past'].includes(urlFilter)) {
-            selectedFilter = urlFilter;
+            $selectedFilter = urlFilter;  // Use $ to update store value
         }
     }
 
-    // Update URL when filter changes
-    $: {
-        if (selectedFilter) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('fl', selectedFilter);
-            goto(url.toString(), { replaceState: true });
-        }
+    // Update URL and storage when filter changes
+    $: if ($selectedFilter) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('fl', $selectedFilter);
+        updateStoredUrl($selectedCalendarType, $selectedFilter);
+        goto(url.toString(), { replaceState: true });
     }
 </script>
 
@@ -189,7 +186,7 @@
     {/if}
     
     <div class="table-container">
-        <select bind:value={selectedFilter} class="filter-select">
+        <select bind:value={$selectedFilter} class="filter-select">
             <option value="all">All Events</option>
             <option value="current">Current & Upcoming</option>
             <option value="past">Past Events</option>

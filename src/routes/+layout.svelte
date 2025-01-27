@@ -1,26 +1,22 @@
 <script lang="ts">
-    import { selectedCalendarType } from './stores';
-    import 'bootstrap-icons/font/bootstrap-icons.css';
+    import { selectedCalendarType, selectedFilter, lastVisitedUrl, updateStoredUrl } from './stores';
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
+    import 'bootstrap-icons/font/bootstrap-icons.css';
 
-    let isInitialized = false;
+    // Single source of truth for calendar type
+    $: currentCalendar = $page.url.pathname.slice(1) || 'school';
 
-    // Handle initial navigation only once
-    onMount(() => {
-        if (!isInitialized && $page.url.pathname === '/') {
-            isInitialized = true;
-            goto('/school?fl=all', { replaceState: true });
-        }
-    });
+    // Keep store in sync with URL
+    $: if (['school', 'university', 'ofppt'].includes(currentCalendar)) {
+        $selectedCalendarType = currentCalendar;
+    }
 
-    // Handle calendar type changes without causing loops
+    // Simple calendar change handler
     function handleCalendarChange(newType: string) {
         const filter = $page.url.searchParams.get('fl') || 'all';
-        if ($page.url.pathname !== `/${newType}`) {
-            goto(`/${newType}?fl=${filter}`, { replaceState: true });
-        }
+        goto(`/${newType}?fl=${filter}`, { replaceState: true });
     }
 </script>
 
@@ -40,11 +36,8 @@
 
 <div class="calendar-type-selector">
     <select 
-        value={$selectedCalendarType} 
-        on:change={(e) => {
-            $selectedCalendarType = e.currentTarget.value;
-            handleCalendarChange(e.currentTarget.value);
-        }}
+        value={currentCalendar}
+        on:change={(e) => handleCalendarChange(e.currentTarget.value)}
     >
         <option value="school">School Calendar</option>
         <option value="university">University Calendar</option>
