@@ -116,9 +116,4 @@
         font-size: 1.2rem;
     }
 
-    h1 {
-        margin: 0;
-        font-size: 1.25rem;
-        color: #212529;
-    }
 </style>
