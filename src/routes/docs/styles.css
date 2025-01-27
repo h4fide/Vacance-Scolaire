@@ -34,12 +34,19 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.section + .section {
+    margin-top: 3rem;
+}
+
 .section h2 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
     color: var(--text-color);
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .endpoint-grid {
@@ -76,13 +83,30 @@
 }
 
 .code-block {
-    background: #1a1a1a;
-    color: #e9ecef;
+    background: #1e1e1e;
     padding: 1.5rem;
     border-radius: 6px;
     overflow-x: auto;
     margin: 1rem 0;
-    position: relative;  /* Add this */
+    position: relative;
+}
+
+/* Style non-highlighted code */
+.code-block > code {
+    color: #e9ecef;
+    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+}
+
+/* Style highlighted JSON code */
+.response-block pre {
+    margin: 0;
+    padding: 0;
+}
+
+.response-block code {
+    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
 }
 
 /* Add new styles */
@@ -116,7 +140,21 @@
     font-size: 1.1rem;
     color: var(--text-color);
     margin: 1.5rem 0 0.5rem;
-    font-weight: 500;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+
+.response-header {
+    display: flex;
+    align-items: flex-start;  /* Changed from center to flex-start */
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
 }
 
 .note {
@@ -129,7 +167,7 @@
 
 .response-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;  /* Changed from center to flex-start */
     justify-content: space-between;
     margin-bottom: 0.5rem;
 }
@@ -141,13 +179,13 @@
     width: 24px;
     height: 24px;
     font-size: 1.2rem;
-    line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-color);
     transition: background-color 0.2s;
+    margin-top: 30px;
 }
 
 .expand-button:hover {
@@ -166,10 +204,80 @@
     transition: max-height 0.5s ease-in;
 }
 
+/* Add endpoints table styles */
+.endpoints-overview {
+    margin-bottom: 2rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--header-bg);
+}
+
+th {
+    background: var(--bg-color);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 2px solid var(--border-color);
+}
+
+th:hover {
+    background: var(--border-color);
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.method-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: #0d6efd;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.endpoint-path-cell {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.sort-arrow {
+    margin-left: 0.5rem;
+    opacity: 0.5;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    td, th {
+        padding: 0.75rem;
+    }
+    
+    .endpoint-path-cell {
+        font-size: 0.85rem;
+    }
+}
+
 /* Add these media queries at the end of the file */
 @media (max-width: 768px) {
     .docs-container {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .api-header {
@@ -222,15 +330,6 @@
         word-break: break-all;
     }
 
-    .language-selector {
-        gap: 0.3rem;
-    }
-
-    .lang-button {
-        padding: 0.2rem 0.6rem;
-        font-size: 0.8rem;
-    }
-
     .response-title {
         font-size: 1rem;
         margin: 1.25rem 0 0.5rem;
@@ -244,6 +343,69 @@
         width: 20px;
         height: 20px;
         font-size: 1rem;
+    }
+
+    .docs-container {
+        padding: 1rem;
+    }
+
+    .api-header {
+        margin: -1rem -1rem 2rem;
+        padding: 2.5rem 1rem;
+    }
+
+    .endpoint-card {
+        padding: 1.25rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .code-block {
+        margin: 0.75rem 0;
+        padding: 1rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+    }
+
+    .response-block {
+        max-height: 150px;
+    }
+
+    .response-block.expanded {
+        max-height: none;
+    }
+
+    .table-container {
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .method-badge {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .endpoint-path-cell {
+        word-break: break-word;
+        max-width: 200px;
+    }
+
+    .expand-button {
+        width: 28px;
+        height: 28px;
+    }
+
+    .copy-button {
+        padding: 0.15rem 0.4rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -293,34 +455,52 @@
     .endpoint-description {
         font-size: 0.95rem;
     }
+
+    .endpoint-grid {
+        gap: 1rem;
+    }
+
+    .endpoint-card {
+        padding: 1rem;
+    }
+
+    .endpoint-path {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .endpoint-description {
+        font-size: 0.9rem;
+        margin: 0.75rem 0;
+    }
+
+    .response-title {
+        font-size: 0.95rem;
+    }
+
+    .response-title::before {
+        font-size: 0.7em;
+        width: 8px;
+        height: 8px;
+    }
+
+    .section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .table-container {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
 }
 
-.language-selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.lang-button {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.3rem 0.8rem;
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: var(--text-color);
-    transition: all 0.2s;
-}
-
-.lang-button:hover {
-    background: var(--border-color);
-}
-
+/* Remove these classes */
+.language-selector,
+.lang-button,
+.lang-button:hover,
 .lang-button.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    display: none;
 }
 
 .code-block code {
