@@ -23,6 +23,8 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"bootstrap-icons": "^1.11.3"
+		"@types/prismjs": "^1.26.5",
+		"bootstrap-icons": "^1.11.3",
+		"prismjs": "^1.29.0"
 	}
 }

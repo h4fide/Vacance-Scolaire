@@ -98,65 +98,212 @@ puts data`
             method: 'GET',
             path: '/api',
             description: 'Get API information and available endpoints',
-            example: `${baseUrl}`
+            example: `${baseUrl}`,
+            response: {
+                "message": "Welcome to the Vacances Scolaires API",
+                "endpoints": {
+                    "general": {
+                        "all": "/api/general",
+                        "next": "/api/general/next",
+                        "upcoming": "/api/general/upcoming"
+                    },
+                    "university": {
+                        "all": "/api/university",
+                        "next": "/api/university/next",
+                        "upcoming": "/api/university/upcoming"
+                    },
+                    "ofppt": {
+                        "all": "/api/ofppt",
+                        "next": "/api/ofppt/next",
+                        "upcoming": "/api/ofppt/upcoming"
+                    }
+                }
+            }
         },
         {
             method: 'GET',
             path: '/api/general',
             description: 'Get all general calendar events',
-            example: `${baseUrl}/general`
+            example: `${baseUrl}/general`,
+            response: [
+                {
+                    "_id": 1,
+                    "eventname": "عيد المولد النبوي",
+                    "start_date": "2024-09-04",
+                    "end_date": "2024-09-05",
+                    "days_number": 2
+                },
+                {
+                    "_id": 2,
+                    "eventname": "العطلة النصفية الأولى",
+                    "start_date": "2024-10-20",
+                    "end_date": "2024-10-27",
+                    "days_number": 8
+                }
+            ]
         },
         {
             method: 'GET',
             path: '/api/general/next',
             description: 'Get the next upcoming general event',
-            example: `${baseUrl}/general/next`
+            example: `${baseUrl}/general/next`,
+            response: {
+                "_id": 10,
+                "eventname": "العطلة النصفية الثالثة",
+                "start_date": "2025-03-16",
+                "end_date": "2025-03-23",
+                "days_number": 8
+            }
         },
         {
             method: 'GET',
             path: '/api/general/upcoming',
             description: 'Get all upcoming general events',
-            example: `${baseUrl}/general/upcoming`
+            example: `${baseUrl}/general/upcoming`,
+            response: [
+                {
+                    "_id": 10,
+                    "eventname": "العطلة النصفية الثالثة",
+                    "start_date": "2025-03-16",
+                    "end_date": "2025-03-23",
+                    "days_number": 8
+                },
+                {
+                    "_id": 11,
+                    "eventname": "عيد الفطر",
+                    "start_date": "2025-04-27",
+                    "end_date": "2025-04-30",
+                    "days_number": "3-4"
+                }
+            ]
         },
         {
             method: 'GET',
             path: '/api/university',
             description: 'Get all university calendar events',
-            example: `${baseUrl}/university`
+            example: `${baseUrl}/university`,
+            response: [
+                {
+                    "_id": 1,
+                    "eventname": "عيد المولد النبوي",
+                    "start_date": "2024-09-04",
+                    "end_date": "2024-09-05",
+                    "days_number": 2
+                },
+                {
+                    "_id": 2,
+                    "eventname": "ذكرى المسيرة الخضراء",
+                    "start_date": "2024-11-06",
+                    "end_date": "2024-11-06",
+                    "days_number": 1
+                }
+            ]
         },
         {
             method: 'GET',
             path: '/api/university/next',
             description: 'Get the next upcoming university event',
-            example: `${baseUrl}/university/next`
+            example: `${baseUrl}/university/next`,
+            response: {
+                "_id": 8,
+                "eventname": "عيد الفطر",
+                "start_date": "2025-04-27",
+                "end_date": "2025-04-30",
+                "days_number": "3 أو 4"
+            }
         },
         {
             method: 'GET',
             path: '/api/university/upcoming',
             description: 'Get all upcoming university events',
-            example: `${baseUrl}/university/upcoming`
+            example: `${baseUrl}/university/upcoming`,
+            response: [
+                {
+                    "_id": 8,
+                    "eventname": "عيد الفطر",
+                    "start_date": "2025-04-27",
+                    "end_date": "2025-04-30",
+                    "days_number": "3 أو 4"
+                },
+                {
+                    "_id": 9,
+                    "eventname": "عيد الشغل",
+                    "start_date": "2025-05-01",
+                    "end_date": "2025-05-01",
+                    "days_number": 1
+                }
+            ]
         },
         {
             method: 'GET',
             path: '/api/ofppt',
             description: 'Get all OFPPT calendar events',
-            example: `${baseUrl}/ofppt`
+            example: `${baseUrl}/ofppt`,
+            response: [
+                {
+                    "id": "1",
+                    "event_name": "عيد المولد النبوي الشريف",
+                    "start_date": "2024-09-25",
+                    "end_date": "2024-09-26",
+                    "days_number": 2
+                },
+                {
+                    "id": "2",
+                    "event_name": "ذكرى المسيرة الخضراء",
+                    "start_date": "2024-11-06",
+                    "end_date": "2024-11-06",
+                    "days_number": 1
+                }
+            ]
         },
         {
             method: 'GET',
             path: '/api/ofppt/next',
             description: 'Get the next upcoming OFPPT event',
-            example: `${baseUrl}/ofppt/next`
+            example: `${baseUrl}/ofppt/next`,
+            response: {
+                "id": "9",
+                "event_name": "عطلة الطور الثاني",
+                "start_date": "2025-03-16",
+                "end_date": "2025-03-23",
+                "days_number": 8
+            }
         },
         {
             method: 'GET',
             path: '/api/ofppt/upcoming',
             description: 'Get all upcoming OFPPT events',
-            example: `${baseUrl}/ofppt/upcoming`
+            example: `${baseUrl}/ofppt/upcoming`,
+            response: [
+                {
+                    "id": "9",
+                    "event_name": "عطلة الطور الثاني",
+                    "start_date": "2025-03-16",
+                    "end_date": "2025-03-23",
+                    "days_number": 8
+                },
+                {
+                    "id": "10",
+                    "event_name": "عيد الفطر",
+                    "start_date": "2025-03-29",
+                    "end_date": "2025-04-02",
+                    "days_number": 4
+                }
+            ]
         }
     ];
 
-
+    // Add expanded state tracking
+    let expandedResponses: Set<number> = new Set();
+    
+    function toggleResponse(index: number) {
+        if (expandedResponses.has(index)) {
+            expandedResponses.delete(index);
+        } else {
+            expandedResponses.add(index);
+        }
+        expandedResponses = expandedResponses; // trigger reactivity
+    }
 </script>
 
 <main class="docs-container">
@@ -169,7 +316,7 @@ puts data`
     <section class="section">
         <h2>Endpoints</h2>
         <div class="endpoint-grid">
-            {#each endpoints as endpoint}
+            {#each endpoints as endpoint, i}
                 <div class="endpoint-card">
                     <div>
                         <span class="endpoint-method">{endpoint.method}</span>
@@ -193,6 +340,25 @@ puts data`
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(getCodeSnippet(endpoint.example, selectedLanguage), e.currentTarget)}
+                            >
+                                Copy
+                            </button>
+                        </div>
+                        <div class="response-header">
+                            <h4 class="response-title">Example Response:</h4>
+                            <button 
+                                class="expand-button" 
+                                on:click={() => toggleResponse(i)}
+                                aria-label={expandedResponses.has(i) ? 'Collapse response' : 'Expand response'}
+                            >
+                                {expandedResponses.has(i) ? '−' : '+'}
+                            </button>
+                        </div>
+                        <div class="code-block response-block" class:expanded={expandedResponses.has(i)}>
+                            <code>{JSON.stringify(endpoint.response, null, 2)}</code>
+                            <button 
+                                class="copy-button" 
+                                on:click={(e) => copyToClipboard(JSON.stringify(endpoint.response, null, 2), e.currentTarget)}
                             >
                                 Copy
                             </button>
