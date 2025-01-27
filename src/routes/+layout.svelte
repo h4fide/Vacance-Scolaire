@@ -7,10 +7,10 @@
     import './styles.css';
 
     // Single source of truth for calendar type
-    $: currentCalendar = $page.url.pathname.slice(1) || 'school';
+    $: currentCalendar = $page.url.pathname.slice(1) || 'general';
 
     // Keep store in sync with URL
-    $: if (['school', 'university', 'ofppt'].includes(currentCalendar)) {
+    $: if (['general', 'university', 'ofppt'].includes(currentCalendar)) {
         $selectedCalendarType = currentCalendar;
     }
 
@@ -21,7 +21,7 @@
     }
 
     $: isDocsPage = $page.url.pathname === '/docs';
-    $: isHomePage = $page.url.pathname === '/' || ['school', 'university', 'ofppt'].includes($page.url.pathname.slice(1));
+    $: isHomePage = $page.url.pathname === '/' || ['general', 'university', 'ofppt'].includes($page.url.pathname.slice(1));
 </script>
 
 <nav class="header-nav">
@@ -59,7 +59,7 @@
             value={currentCalendar}
             on:change={(e) => handleCalendarChange(e.currentTarget.value)}
         >
-            <option value="school">School Calendar</option>
+            <option value="general">General Calendar</option>
             <option value="university">University Calendar</option>
             <option value="ofppt">OFPPT Calendar</option>
         </select>

@@ -9,7 +9,7 @@
     import { goto } from '$app/navigation';
     
     $: calendarData = {
-        school: schoolCalendar as SchoolAndUniversityEvent[],
+        general: schoolCalendar as SchoolAndUniversityEvent[],
         university: universityCalendar as SchoolAndUniversityEvent[],
         ofppt: ofpptCalendar as OFPPTEvent[]
     }[$selectedCalendarType] || [];
@@ -152,8 +152,8 @@
 
 <main>
     <h1>
-        {#if $selectedCalendarType === 'school'}
-            School Calendar Events
+        {#if $selectedCalendarType === 'general'}
+            General Calendar Events
         {:else if $selectedCalendarType === 'university'}
             University Calendar Events
         {:else}
@@ -196,17 +196,15 @@
             <thead>
                 <tr>
                     <th>Event Name</th>
+                    <th>Status</th>
                     <th>Date</th>
                     <th>Duration</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {#each filteredEvents().currentAndUpcoming as event}
                     <tr class={new Date(event.start_date) <= today && new Date(event.end_date) >= today ? 'current-event' : ''}>
                         <td>{getEventName(event)}</td>
-                        <td>{formatDateRange(event.start_date, event.end_date)}</td>
-                        <td>{getDaysText(event.days_number)}</td>
                         <td>
                             {#if new Date(event.start_date) <= today && new Date(event.end_date) >= today}
                                 <span class="status current">Current</span>
@@ -214,6 +212,8 @@
                                 <span class="status upcoming">{getRemainingDays(event.start_date)}</span>
                             {/if}
                         </td>
+                        <td>{formatDateRange(event.start_date, event.end_date)}</td>
+                        <td>{getDaysText(event.days_number)}</td>
                     </tr>
                 {/each}
 
@@ -232,11 +232,11 @@
                 {#each filteredEvents().past as event}
                     <tr class="past-event">
                         <td>{getEventName(event)}</td>
-                        <td>{formatDateRange(event.start_date, event.end_date)}</td>
-                        <td>{getDaysText(event.days_number)}</td>
                         <td>
                             <span class="status past">{getDaysAgo(event.end_date)}</span>
                         </td>
+                        <td>{formatDateRange(event.start_date, event.end_date)}</td>
+                        <td>{getDaysText(event.days_number)}</td>
                     </tr>
                 {/each}
             </tbody>

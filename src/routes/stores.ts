@@ -1,9 +1,9 @@
 import { writable } from 'svelte/store';
 
 // Initialize stores with default values
-export const selectedCalendarType = writable('school');
+export const selectedCalendarType = writable('general');
 export const selectedFilter = writable('all');
-export const lastVisitedUrl = writable('/school?fl=all');
+export const lastVisitedUrl = writable('/general?fl=all');
 
 // Update stored URL and localStorage
 export function updateStoredUrl(calendar: string, filter: string) {
