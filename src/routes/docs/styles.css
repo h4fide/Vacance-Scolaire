@@ -105,20 +105,30 @@
 /* Add these media queries at the end of the file */
 @media (max-width: 768px) {
     .docs-container {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .api-header {
-        padding: 2rem 1rem;
-        margin: -1rem -1rem 2rem;
+        padding: 3.5rem 1.5rem;
+        margin: -1.5rem -1.5rem 2.5rem;
+        background: linear-gradient(145deg, #0d6efd, #2196f3); /* Adjusted gradient angle */
     }
 
     .api-header h1 {
         font-size: 2rem;
+        line-height: 1.4;
+        margin-bottom: 1.25rem;
+        padding: 0 0.5rem;
+        letter-spacing: -0.5px;
     }
 
     .api-header p {
-        font-size: 1rem;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        max-width: 85%;
+        margin: 0 auto;
+        padding: 0 1rem;
+        opacity: 1;
     }
 
     .section {
@@ -150,6 +160,39 @@
 }
 
 @media (max-width: 480px) {
+    .api-header {
+        padding: 2.75rem 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .api-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        padding: 0;
+    }
+
+    .api-header p {
+        font-size: 1rem;
+        max-width: 95%;
+        padding: 0;
+        line-height: 1.5;
+    }
+
+    .api-header {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .api-header h1 {
+        font-size: 1.9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .api-header p {
+        font-size: 1rem;
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
     .api-header h1 {
         font-size: 1.75rem;
     }

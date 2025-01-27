@@ -72,14 +72,28 @@
     /* Mobile responsive styles */
     @media screen and (max-width: 768px) {
         .header-nav {
-            padding: 0.5rem;
-            flex-direction: column;
-            gap: 0.5rem;
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .nav-right {
-            width: 100%;
-            justify-content: center;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-right a, .nav-right button {
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .bi {
+            font-size: 1.1rem;
         }
 
         .calendar-type-selector {

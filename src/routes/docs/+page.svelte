@@ -11,21 +11,21 @@
         },
         {
             method: 'GET',
-            path: '/school',
-            description: 'Get all school calendar events',
-            example: `${baseUrl}/school`
+            path: '/general',
+            description: 'Get all general calendar events',
+            example: `${baseUrl}/general`
         },
         {
             method: 'GET',
-            path: '/school/next',
-            description: 'Get the next upcoming school event',
-            example: `${baseUrl}/school/next`
+            path: '/general/next',
+            description: 'Get the next upcoming general event',
+            example: `${baseUrl}/general/next`
         },
         {
             method: 'GET',
-            path: '/school/upcoming',
-            description: 'Get all upcoming school events',
-            example: `${baseUrl}/school/upcoming`
+            path: '/general/upcoming',
+            description: 'Get all upcoming general events',
+            example: `${baseUrl}/general/upcoming`
         },
         {
             method: 'GET',
@@ -69,10 +69,10 @@
         base: {
             message: 'Welcome to the Vacances Scolaires API',
             endpoints: {
-                school: {
-                    all: '/api/school',
-                    next: '/api/school/next',
-                    upcoming: '/api/school/upcoming'
+                general: {
+                    all: '/api/general',
+                    next: '/api/general/next',
+                    upcoming: '/api/general/upcoming'
                 }
                 // ... other endpoints
             }

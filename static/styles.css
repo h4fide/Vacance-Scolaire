@@ -14,11 +14,58 @@ h1 {
 /* Add table responsive styles */
 @media screen and (max-width: 768px) {
     table {
-        font-size: 14px;
+        font-size: 16px;
     }
     
     th, td {
-        padding: 8px;
+        padding: 12px;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin: 15px 0;
+        padding: 0 10px;
+        line-height: 1.4;
+    }
+
+    .countdown-box {
+        margin: 15px;
+        padding: 20px;
+        max-width: calc(100% - 30px);
+    }
+
+    .countdown-timer {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .countdown-item {
+        min-width: 80px;
+        padding: 12px;
+    }
+
+    .countdown-number {
+        font-size: 1.5em;
+    }
+
+    .countdown-label {
+        font-size: 0.85em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .countdown-box {
+        padding: 15px;
+    }
+
+    .countdown-item {
+        min-width: 70px;
+        padding: 10px;
     }
 }
 
