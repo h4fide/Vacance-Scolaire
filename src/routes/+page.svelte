@@ -254,8 +254,8 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        background: white;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        background: var(--bg-color);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
     
     th, td {
@@ -265,12 +265,16 @@
     }
     
     th {
-        background-color: #f5f5f5;
-        font-weight: bold;
+        background-color: var(--header-bg);
+        color: var(--text-color);
+    }
+    
+    td {
+        border-bottom: 1px solid var(--border-color);
     }
     
     .current-event {
-        background-color: #e8f5e9;
+        background-color: rgba(76, 175, 80, 0.1);
     }
     
     .past-event {
@@ -301,10 +305,11 @@
     .filter-select {
         margin-bottom: 1rem;
         padding: 8px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--border-color);
         border-radius: 4px;
         font-size: 1rem;
-        background-color: white;
+        background-color: var(--bg-color);
+        color: var(--text-color);
     }
 
     .separator {
@@ -324,11 +329,80 @@
     }
 
     tbody tr:not(.separator):hover {
-        background-color: #f8f9fa;
+        background-color: var(--hover-bg);
         transition: background-color 0.2s ease;
     }
 
     .past-event {
         opacity: 0.8;
+    }
+
+    .countdown-box {
+        background: var(--header-bg);
+        color: var(--text-color);
+    }
+
+    .countdown-item {
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+    }
+
+    .countdown-number {
+        color: #2196f3;
+    }
+
+    .countdown-label {
+        color: var(--text-color);
+    }
+
+    /* Mobile responsive styles */
+    @media screen and (max-width: 768px) {
+        .table-container {
+            margin: 1rem;
+            font-size: 14px;
+        }
+
+        table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            min-width: 120px; /* Prevent text from wrapping too early */
+        }
+
+        .countdown-timer {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .countdown-item {
+            min-width: 60px;
+            padding: 8px;
+        }
+
+        .countdown-number {
+            font-size: 1.5em;
+        }
+
+        .countdown-label {
+            font-size: 0.8em;
+        }
+
+        .countdown-box {
+            margin: 10px;
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+
+        .filter-select {
+            width: 100%;
+            margin: 0 0 1rem 0;
+        }
     }
 </style>

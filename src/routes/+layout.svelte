@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { selectedCalendarType, selectedFilter, lastVisitedUrl, updateStoredUrl } from './stores';
+    import { selectedCalendarType, selectedFilter, lastVisitedUrl, updateStoredUrl, isDarkMode } from './stores';
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
     import 'bootstrap-icons/font/bootstrap-icons.css';
+    import './styles.css';
 
     // Single source of truth for calendar type
     $: currentCalendar = $page.url.pathname.slice(1) || 'school';
@@ -18,102 +19,76 @@
         const filter = $page.url.searchParams.get('fl') || 'all';
         goto(`/${newType}?fl=${filter}`, { replaceState: true });
     }
+
+    $: isDocsPage = $page.url.pathname === '/docs';
+    $: isHomePage = $page.url.pathname === '/' || ['school', 'university', 'ofppt'].includes($page.url.pathname.slice(1));
 </script>
 
 <nav class="header-nav">
     <div class="nav-left">
+        {#if isDocsPage}
+            <a href="/" class="home-link">
+                <i class="bi bi-house"></i>
+                Home
+            </a>
+        {/if}
     </div>
     <div class="nav-right">
-        <a href="/docs" class="api-link">
-            <i class="bi bi-file-text"></i>
-            API
-        </a>
+        <button class="theme-toggle" on:click={() => $isDarkMode = !$isDarkMode}>
+            {#if $isDarkMode}
+                <i class="bi bi-sun"></i>
+            {:else}
+                <i class="bi bi-moon"></i>
+            {/if}
+        </button>
+        {#if isHomePage}
+            <a href="/docs" class="docs-link">
+                API
+            </a>
+        {/if}
+        
         <a href="https://github.com/h4fide/Vacance-Scolaire" target="_blank" rel="noopener noreferrer" class="github-link">
             <i class="bi bi-github"></i>
             GitHub</a>
     </div>
 </nav>
 
-<div class="calendar-type-selector">
-    <select 
-        value={currentCalendar}
-        on:change={(e) => handleCalendarChange(e.currentTarget.value)}
-    >
-        <option value="school">School Calendar</option>
-        <option value="university">University Calendar</option>
-        <option value="ofppt">OFPPT Calendar</option>
-    </select>
-</div>
+{#if !isDocsPage}
+    <div class="calendar-type-selector">
+        <select 
+            value={currentCalendar}
+            on:change={(e) => handleCalendarChange(e.currentTarget.value)}
+        >
+            <option value="school">School Calendar</option>
+            <option value="university">University Calendar</option>
+            <option value="ofppt">OFPPT Calendar</option>
+        </select>
+    </div>
+{/if}
 
 <slot />
 
 <style>
-    .calendar-type-selector {
-        text-align: center;
-        padding: 1rem;
-    }
+    /* Mobile responsive styles */
+    @media screen and (max-width: 768px) {
+        .header-nav {
+            padding: 0.5rem;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-    select {
-        padding: 8px 16px;
-        font-size: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background-color: white;
-        cursor: pointer;
-    }
+        .nav-right {
+            width: 100%;
+            justify-content: center;
+        }
 
-    select:hover {
-        border-color: #2196f3;
-    }
+        .calendar-type-selector {
+            padding: 0.5rem;
+        }
 
-    .header-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e9ecef;
+        .calendar-type-selector select {
+            width: 90%;
+            max-width: 300px;
+        }
     }
-
-    .nav-right {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-    }
-
-    .nav-right a {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #495057;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-    }
-
-    .nav-right a:hover {
-        background-color: #e9ecef;
-        color: #212529;
-    }
-
-    .github-link:hover {
-        background-color: #24292e;
-        color: white;
-    }
-
-    .api-link:hover {
-        background-color: #0d6efd;
-        color: white;
-    }
-
-    .api-link {
-        border: 1px solid #dee2e6;
-    }
-
-    i.bi {
-        font-size: 1.2rem;
-    }
-
 </style>

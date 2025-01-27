@@ -1,0 +1,168 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #495057;
+    --header-bg: #f8f9fa;
+    --border-color: #e9ecef;
+    --hover-bg: #e9ecef;
+    --hover-text: #212529;
+}
+
+html.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --header-bg: #2d2d2d;
+    --border-color: #404040;
+    --hover-bg: #404040;
+    --hover-text: #ffffff;
+    --table-header-bg: #2d2d2d;
+    --table-row-hover: #333333;
+    --select-bg: #2d2d2d;
+    --select-border: #404040;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-type-selector {
+    text-align: center;
+    padding: 1rem;
+}
+
+select {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    cursor: pointer;
+}
+
+select:hover {
+    border-color: #2196f3;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-right {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-right a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-right a:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+}
+
+.github-link:hover {
+    background-color: #24292e;
+    color: white;
+}
+
+i.bi {
+    font-size: 1.2rem;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.home-link:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.docs-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.docs-link:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+.theme-toggle:hover {
+    color: #0d6efd;
+}
+
+table {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+th {
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.current-event {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.past-event {
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.dots {
+    color: var(--text-color);
+}
+
+h1, h2 {
+    color: var(--text-color);
+}

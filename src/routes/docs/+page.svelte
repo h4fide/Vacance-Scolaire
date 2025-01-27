@@ -1,7 +1,14 @@
 <script lang="ts">
+    import './styles.css';
     const baseUrl = 'https://vacance-scolaire.pages.dev/api';
     
     const endpoints = [
+        {
+            method: 'GET',
+            path: '/',
+            description: 'Get API information and available endpoints',
+            example: `${baseUrl}`
+        },
         {
             method: 'GET',
             path: '/school',
@@ -57,209 +64,57 @@
             example: `${baseUrl}/ofppt/upcoming`
         }
     ];
+
+    const exampleResponses = {
+        base: {
+            message: 'Welcome to the Vacances Scolaires API',
+            endpoints: {
+                school: {
+                    all: '/api/school',
+                    next: '/api/school/next',
+                    upcoming: '/api/school/upcoming'
+                }
+                // ... other endpoints
+            }
+        },
+        calendar: [
+            {
+                "_id": 1,
+                "eventname": "Winter Break",
+                "start_date": "2024-01-21",
+                "end_date": "2024-01-28",
+                "days_number": 7
+            }
+        ]
+    };
 </script>
 
 <main class="docs-container">
-    <h1>API Documentation</h1>
-    
-    <section class="intro">
-        <h2>Introduction</h2>
-        <p>Welcome to the Vacances Scolaires API documentation. This API provides access to school, university, and OFPPT holiday calendars in Morocco.</p>
-        <p>All endpoints return JSON data and are freely accessible without authentication.</p>
-        
-        <div class="base-url">
-            <h3>Base URL</h3>
-            <code>{baseUrl}</code>
-        </div>
-    </section>
+    <header class="api-header">
+        <h1>Vacances Scolaires API</h1>
+        <p>Access school, university, and OFPPT holiday calendars in Morocco through simple REST endpoints.</p>
+    </header>
 
-    <section class="endpoints">
+
+    <section class="section">
         <h2>Endpoints</h2>
-        {#each endpoints as endpoint}
-            <div class="endpoint-card">
-                <div class="endpoint-header">
-                    <span class="method">{endpoint.method}</span>
-                    <code class="path">{endpoint.path}</code>
+        <div class="endpoint-grid">
+            {#each endpoints as endpoint}
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method">{endpoint.method}</span>
+                        <span class="endpoint-path">{endpoint.path}</span>
+                    </div>
+                    <p class="endpoint-description">{endpoint.description}</p>
+                    <div class="response-example">
+                        <div class="response-title">Example Request:</div>
+                        <div class="code-block">
+                            <code>curl {endpoint.example}</code>
+                        </div>
+                    </div>
                 </div>
-                <p class="description">{endpoint.description}</p>
-                <div class="example">
-                    <h4>Example Request</h4>
-                    <code>{endpoint.example}</code>
-                </div>
-            </div>
-        {/each}
-    </section>
-
-    <section class="response-example">
-        <h2>Example Response</h2>
-        <pre><code>{JSON.stringify([
-    {
-        "_id": 1,
-        "eventname": "Winter Break",
-        "start_date": "2024-01-21",
-        "end_date": "2024-01-28",
-        "days_number": 7
-    }
-], null, 2)}</code></pre>
-    </section>
-
-    <section class="response-format">
-        <h2>Response Formats</h2>
-        
-        <div class="format-example">
-            <h3>Full Calendar Response</h3>
-            <pre><code>{JSON.stringify([
-    {
-        "_id": 1,
-        "eventname": "Winter Break",
-        "start_date": "2024-01-21",
-        "end_date": "2024-01-28",
-        "days_number": 7
-    }
-], null, 2)}</code></pre>
-        </div>
-
-        <div class="format-example">
-            <h3>Next Event Response</h3>
-            <pre><code>{JSON.stringify({
-    "_id": 1,
-    "eventname": "Winter Break",
-    "start_date": "2024-01-21",
-    "end_date": "2024-01-28",
-    "days_number": 7
-}, null, 2)}</code></pre>
-        </div>
-
-        <div class="format-example">
-            <h3>Upcoming Events Response</h3>
-            <pre><code>{JSON.stringify([
-    {
-        "_id": 1,
-        "eventname": "Winter Break",
-        "start_date": "2024-01-21",
-        "end_date": "2024-01-28",
-        "days_number": 7
-    },
-    {
-        "_id": 2,
-        "eventname": "Spring Break",
-        "start_date": "2024-03-15",
-        "end_date": "2024-03-22",
-        "days_number": 7
-    }
-], null, 2)}</code></pre>
+            {/each}
         </div>
     </section>
+
 </main>
-
-<style>
-    .docs-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    h1 {
-        color: #2c3e50;
-        margin-bottom: 2rem;
-    }
-
-    h2 {
-        color: #34495e;
-        margin: 2rem 0 1rem;
-    }
-
-    .intro {
-        margin-bottom: 3rem;
-    }
-
-    .base-url {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 6px;
-        margin: 1rem 0;
-    }
-
-    .endpoint-card {
-        background: white;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .endpoint-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .method {
-        background: #2196f3;
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.9rem;
-    }
-
-    .path {
-        font-family: monospace;
-        background: #f8f9fa;
-        padding: 0.3rem 0.8rem;
-        border-radius: 4px;
-    }
-
-    .description {
-        color: #666;
-        margin-bottom: 1rem;
-    }
-
-    .example {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 6px;
-    }
-
-    .example h4 {
-        margin: 0 0 0.5rem 0;
-        color: #495057;
-    }
-
-    .example code {
-        color: #e83e8c;
-    }
-
-    .response-example {
-        margin-top: 3rem;
-    }
-
-    .response-example pre {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 6px;
-        overflow-x: auto;
-    }
-
-    code {
-        font-family: 'Courier New', Courier, monospace;
-    }
-
-    .format-example {
-        margin: 2rem 0;
-    }
-
-    .format-example h3 {
-        color: #495057;
-        margin-bottom: 1rem;
-    }
-
-    .format-example pre {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 6px;
-        overflow-x: auto;
-    }
-</style>

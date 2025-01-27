@@ -16,6 +16,22 @@ export function updateStoredUrl(calendar: string, filter: string) {
     }
 }
 
+// Theme store
+export const isDarkMode = writable(
+    typeof window !== 'undefined' 
+        ? localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')  // Default to dark if no theme is set
+        : true  // Default to dark in SSR
+);
+
+isDarkMode.subscribe(dark => {
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark-mode', dark);
+        // Also apply the class to the HTML element
+        document.querySelector('html')?.classList.toggle('dark-mode', dark);
+    }
+});
+
 // Initialize from localStorage if available
 if (typeof window !== 'undefined') {
     const storedCalendar = localStorage.getItem('selectedCalendarType');
