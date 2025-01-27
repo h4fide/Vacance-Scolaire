@@ -161,7 +161,7 @@ puts data`
 <main class="docs-container">
     <header class="api-header">
         <h1>Vacances Scolaires API</h1>
-        <p>Access school, university, and OFPPT holiday calendars in Morocco through simple REST endpoints.</p>
+        <p>Accédez aux calendriers des vacances scolaires, universitaires et de l'OFPPT au Maroc via des points de terminaison REST simples.</p>
     </header>
 
     <section class="section endpoints-overview">

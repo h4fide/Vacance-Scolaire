@@ -314,6 +314,8 @@ td {
 
     .endpoint-card {
         padding: 1rem;
+        overflow-x: hidden;
+        word-wrap: break-word;
     }
 
     .endpoint-path {
@@ -321,6 +323,8 @@ td {
         margin-top: 0.5rem;
         font-size: 0.95rem;
         word-break: break-all;
+        overflow-wrap: break-word;
+        max-width: 100%;
     }
 
     .code-block {
@@ -328,6 +332,14 @@ td {
         font-size: 0.9rem;
         white-space: pre-wrap;
         word-break: break-all;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    .code-block code {
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-width: 100%;
     }
 
     .response-title {
@@ -407,6 +419,21 @@ td {
         padding: 0.15rem 0.4rem;
         font-size: 0.75rem;
     }
+
+    .response-block pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .response-block code {
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .section-label {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -462,6 +489,8 @@ td {
 
     .endpoint-card {
         padding: 1rem;
+        margin: 0 -0.5rem;
+        border-radius: 4px;
     }
 
     .endpoint-path {
@@ -493,6 +522,16 @@ td {
         box-shadow: none;
         border: 1px solid var(--border-color);
     }
+
+    .code-block {
+        margin: 0.75rem -0.5rem;
+        border-radius: 4px;
+    }
+
+    .section-label {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
 }
 
 /* Remove these classes */
@@ -507,4 +546,17 @@ td {
     white-space: pre;
     display: block;
     padding-right: 2rem;
+}
+
+.section-divider {
+    background: var(--bg-color);
+}
+
+.section-label {
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 1rem;
+    display: block;
+    font-size: 1.1rem;
+    border-bottom: 2px solid var(--border-color);
 }

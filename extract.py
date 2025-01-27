@@ -82,7 +82,6 @@ class APIDocsGenerator:
         """Generate API documentation and test results."""
         self.create_output_directory()
         
-        # Start with a header for the documentation
         all_examples = "# API Documentation\n\n"
         all_examples += f"Base URL: {self.base_url}\n\n"
         
@@ -91,7 +90,6 @@ class APIDocsGenerator:
             response_data = self.fetch_endpoint_response(endpoint)
             all_examples += self.generate_markdown_example(endpoint, response_data)
         
-        # Save complete documentation
         filepath = os.path.join(self.output_dir, "api_documentation.md")
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(all_examples)
@@ -99,7 +97,6 @@ class APIDocsGenerator:
         print("\nAPI documentation generation completed!")
         print(f"Documentation has been saved to '{filepath}'")
 
-        # Generate test results
         test_results = self.generate_test_results()
         test_filepath = os.path.join(self.output_dir, "api_test_results.md")
         with open(test_filepath, 'w', encoding='utf-8') as f:
@@ -108,7 +105,6 @@ class APIDocsGenerator:
         print(f"Test results have been saved to '{test_filepath}'")
 
 def main():
-    # Base URL and endpoints configuration
     base_url = 'https://vacance-scolaire.pages.dev/api'
     
     endpoints = [
