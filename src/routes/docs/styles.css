@@ -8,7 +8,7 @@
 .api-header {
     text-align: center;
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, #0d6efd, #2196f3);
+    /* background: linear-gradient(135deg, #0d6efd, #2196f3); */
     color: white;
     margin: -2rem -2rem 3rem;
 }

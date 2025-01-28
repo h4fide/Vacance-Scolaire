@@ -1,13 +1,31 @@
+/* Import Arabic Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
 /* Basic styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 h1 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, #2196f3, #1565c0);
+    border-radius: 2px;
+
 }
 
 /* Countdown styles */
@@ -31,6 +49,8 @@ h1 {
 }
 
 .countdown-title {
+    font-family: 'Noto Kufi Arabic', 'Noto Naskh Arabic', 'IBM Plex Sans Arabic', sans-serif;
+    font-weight: 700;
     color: var(--text-color);  /* Changed from white to theme variable */
     font-size: 2.5rem;
     font-weight: bold;
@@ -65,6 +85,7 @@ h1 {
 }
 
 .countdown-number {
+    font-family: 'IBM Plex Sans Arabic', 'Noto Kufi Arabic', sans-serif;
     font-size: 3rem;
     font-weight: bold;
     color: white;
@@ -73,6 +94,7 @@ h1 {
 }
 
 .countdown-label {
+    font-family: 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', sans-serif;
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
@@ -276,8 +298,10 @@ tbody tr:not(.separator):hover {
     h1 {
         font-size: 1.5rem;
         margin: 15px 0;
-        padding: 0 15px;
+        padding: 15px;
         line-height: 1.4;
+        margin-top: 20px;
+
     }
 
     .filter-select {
