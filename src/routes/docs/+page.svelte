@@ -1,3 +1,9 @@
+<svelte:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</svelte:head>
+
 <script lang="ts">
     import './styles.css';
     import { onMount } from 'svelte';
@@ -61,7 +67,7 @@ import (
 
 func main() {
     resp, err := http.Get("${url}")
-    if err != nil {
+    if (err != nil) {
         panic(err)
     }
     defer resp.Body.Close()
@@ -84,13 +90,12 @@ puts data`
         return snippets[lang];
     }
 
-    // Add copy function
+    // Update copy function
     function copyToClipboard(text: string, button: HTMLButtonElement) {
         navigator.clipboard.writeText(text).then(() => {
-            button.textContent = 'Copied!';
+            // Don't change text content since we're using an icon
             button.classList.add('copied');
             setTimeout(() => {
-                button.textContent = 'Copy';
                 button.classList.remove('copied');
             }, 2000);
         });
@@ -98,6 +103,7 @@ puts data`
 
 
     let expandedResponses: Set<number> = new Set();
+    
     
     function toggleResponse(index: number) {
         if (expandedResponses.has(index)) {
@@ -156,6 +162,12 @@ puts data`
         university: 'University',
         ofppt: 'OFPPT'
     };
+
+    const baseUrl = "https://vacance-scolaire.pages.dev";
+    
+    function getFullUrl(path: string) {
+        return `${baseUrl}${path}`;
+    }
 </script>
 
 <main class="docs-container">
@@ -252,6 +264,20 @@ puts data`
                         <span class="endpoint-path">{endpoint.path}</span>
                     </div>
                     <p class="endpoint-description">{endpoint.description}</p>
+                    <div class="url-tag">URL</div>
+                    <div class="url-display">
+                        <span class="url-text">{getFullUrl(endpoint.path)}</span>
+                        <button 
+                            class="url-copy-button"
+                            on:click={(e) => copyToClipboard(getFullUrl(endpoint.path), e.currentTarget)}
+                            aria-label="Copy to clipboard"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="response-example">
                         <div class="language-selector">
                             {#each languages as lang}
@@ -264,13 +290,14 @@ puts data`
                                 </button>
                             {/each}
                         </div>
+                        <div class="tag">CURL</div>
                         <div class="code-block">
                             <code>{getCodeSnippet(endpoint.example, selectedLanguage)}</code>
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(getCodeSnippet(endpoint.example, selectedLanguage), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                         <div class="response-header">
@@ -291,8 +318,8 @@ puts data`
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(JSON.stringify(endpoint.response, null, 2), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                     </div>
@@ -312,6 +339,20 @@ puts data`
                         <span class="endpoint-path">{endpoint.path}</span>
                     </div>
                     <p class="endpoint-description">{endpoint.description}</p>
+                    <div class="url-tag">URL</div>
+                    <div class="url-display">
+                        <span class="url-text">{getFullUrl(endpoint.path)}</span>
+                        <button 
+                            class="url-copy-button"
+                            on:click={(e) => copyToClipboard(getFullUrl(endpoint.path), e.currentTarget)}
+                            aria-label="Copy to clipboard"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="response-example">
                         <div class="language-selector">
                             {#each languages as lang}
@@ -324,13 +365,14 @@ puts data`
                                 </button>
                             {/each}
                         </div>
+                        <div class="tag">CURL</div>
                         <div class="code-block">
                             <code>{getCodeSnippet(endpoint.example, selectedLanguage)}</code>
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(getCodeSnippet(endpoint.example, selectedLanguage), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                         <div class="response-header">
@@ -351,8 +393,8 @@ puts data`
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(JSON.stringify(endpoint.response, null, 2), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                     </div>
@@ -372,6 +414,20 @@ puts data`
                         <span class="endpoint-path">{endpoint.path}</span>
                     </div>
                     <p class="endpoint-description">{endpoint.description}</p>
+                    <div class="url-tag">URL</div>
+                    <div class="url-display">
+                        <span class="url-text">{getFullUrl(endpoint.path)}</span>
+                        <button 
+                            class="url-copy-button"
+                            on:click={(e) => copyToClipboard(getFullUrl(endpoint.path), e.currentTarget)}
+                            aria-label="Copy to clipboard"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="response-example">
                         <div class="language-selector">
                             {#each languages as lang}
@@ -384,13 +440,14 @@ puts data`
                                 </button>
                             {/each}
                         </div>
+                        <div class="tag">CURL</div>
                         <div class="code-block">
                             <code>{getCodeSnippet(endpoint.example, selectedLanguage)}</code>
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(getCodeSnippet(endpoint.example, selectedLanguage), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                         <div class="response-header">
@@ -411,8 +468,8 @@ puts data`
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(JSON.stringify(endpoint.response, null, 2), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                     </div>
@@ -432,6 +489,20 @@ puts data`
                         <span class="endpoint-path">{endpoint.path}</span>
                     </div>
                     <p class="endpoint-description">{endpoint.description}</p>
+                    <div class="url-tag">URL</div>
+                    <div class="url-display">
+                        <span class="url-text">{getFullUrl(endpoint.path)}</span>
+                        <button 
+                            class="url-copy-button"
+                            on:click={(e) => copyToClipboard(getFullUrl(endpoint.path), e.currentTarget)}
+                            aria-label="Copy to clipboard"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="response-example">
                         <div class="language-selector">
                             {#each languages as lang}
@@ -444,13 +515,14 @@ puts data`
                                 </button>
                             {/each}
                         </div>
+                        <div class="tag">CURL</div>
                         <div class="code-block">
                             <code>{getCodeSnippet(endpoint.example, selectedLanguage)}</code>
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(getCodeSnippet(endpoint.example, selectedLanguage), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                         <div class="response-header">
@@ -471,8 +543,8 @@ puts data`
                             <button 
                                 class="copy-button" 
                                 on:click={(e) => copyToClipboard(JSON.stringify(endpoint.response, null, 2), e.currentTarget)}
+                                aria-label="Copy to clipboard"
                             >
-                                Copy
                             </button>
                         </div>
                     </div>

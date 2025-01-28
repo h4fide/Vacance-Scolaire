@@ -54,8 +54,8 @@ GET https://vacance-scolaire.pages.dev/api/general
   {
     "_id": 1,
     "eventname": "عيد المولد النبوي",
-    "start_date": "2024-09-04",
-    "end_date": "2024-09-05",
+    "start_date": "2024-09-15",
+    "end_date": "2024-09-16",
     "days_number": 2
   },
   {
@@ -124,13 +124,13 @@ GET https://vacance-scolaire.pages.dev/api/general
   {
     "_id": 11,
     "eventname": "عيد الفطر",
-    "start_date": "2025-04-27",
-    "end_date": "2025-04-30",
+    "start_date": "2025-03-29",
+    "end_date": "2025-03-31",
     "days_number": "3-4"
   },
   {
     "_id": 12,
-    "eventname": "عيد العمال",
+    "eventname": "عيد الشغل",
     "start_date": "2025-05-01",
     "end_date": "2025-05-01",
     "days_number": 1
@@ -145,8 +145,8 @@ GET https://vacance-scolaire.pages.dev/api/general
   {
     "_id": 14,
     "eventname": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-08",
+    "start_date": "2025-06-05",
+    "end_date": "2025-06-07",
     "days_number": 3
   },
   {
@@ -205,13 +205,13 @@ GET https://vacance-scolaire.pages.dev/api/general/upcoming
   {
     "_id": 11,
     "eventname": "عيد الفطر",
-    "start_date": "2025-04-27",
-    "end_date": "2025-04-30",
+    "start_date": "2025-03-29",
+    "end_date": "2025-03-31",
     "days_number": "3-4"
   },
   {
     "_id": 12,
-    "eventname": "عيد العمال",
+    "eventname": "عيد الشغل",
     "start_date": "2025-05-01",
     "end_date": "2025-05-01",
     "days_number": 1
@@ -226,8 +226,8 @@ GET https://vacance-scolaire.pages.dev/api/general/upcoming
   {
     "_id": 14,
     "eventname": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-08",
+    "start_date": "2025-06-05",
+    "end_date": "2025-06-07",
     "days_number": 3
   },
   {
@@ -257,8 +257,8 @@ GET https://vacance-scolaire.pages.dev/api/university
   {
     "_id": 1,
     "eventname": "عيد المولد النبوي",
-    "start_date": "2024-09-04",
-    "end_date": "2024-09-05",
+    "start_date": "2024-09-15",
+    "end_date": "2024-09-16",
     "days_number": 2
   },
   {
@@ -306,9 +306,9 @@ GET https://vacance-scolaire.pages.dev/api/university
   {
     "_id": 8,
     "eventname": "عيد الفطر",
-    "start_date": "2025-04-27",
-    "end_date": "2025-04-30",
-    "days_number": "3 أو 4"
+    "start_date": "2025-03-29",
+    "end_date": "2025-03-31",
+    "days_number": "3-4"
   },
   {
     "_id": 9,
@@ -327,8 +327,8 @@ GET https://vacance-scolaire.pages.dev/api/university
   {
     "_id": 11,
     "eventname": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-08",
+    "start_date": "2025-06-05",
+    "end_date": "2025-06-07",
     "days_number": 3
   },
   {
@@ -357,9 +357,9 @@ GET https://vacance-scolaire.pages.dev/api/university/next
 {
   "_id": 8,
   "eventname": "عيد الفطر",
-  "start_date": "2025-04-27",
-  "end_date": "2025-04-30",
-  "days_number": "3 أو 4"
+  "start_date": "2025-03-29",
+  "end_date": "2025-03-31",
+  "days_number": "3-4"
 }
 ```
 
@@ -380,9 +380,9 @@ GET https://vacance-scolaire.pages.dev/api/university/upcoming
   {
     "_id": 8,
     "eventname": "عيد الفطر",
-    "start_date": "2025-04-27",
-    "end_date": "2025-04-30",
-    "days_number": "3 أو 4"
+    "start_date": "2025-03-29",
+    "end_date": "2025-03-31",
+    "days_number": "3-4"
   },
   {
     "_id": 9,
@@ -401,8 +401,8 @@ GET https://vacance-scolaire.pages.dev/api/university/upcoming
   {
     "_id": 11,
     "eventname": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-08",
+    "start_date": "2025-06-05",
+    "end_date": "2025-06-07",
     "days_number": 3
   },
   {
@@ -432,8 +432,8 @@ GET https://vacance-scolaire.pages.dev/api/ofppt
   {
     "id": "1",
     "event_name": "عيد المولد النبوي الشريف",
-    "start_date": "2024-09-25",
-    "end_date": "2024-09-26",
+    "start_date": "2024-09-15",
+    "end_date": "2024-09-16",
     "days_number": 2
   },
   {
@@ -496,7 +496,7 @@ GET https://vacance-scolaire.pages.dev/api/ofppt
     "id": "10",
     "event_name": "عيد الفطر",
     "start_date": "2025-03-29",
-    "end_date": "2025-04-02",
+    "end_date": "2025-03-31",
     "days_number": 4
   },
   {
@@ -516,15 +516,15 @@ GET https://vacance-scolaire.pages.dev/api/ofppt
   {
     "id": "13",
     "event_name": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-09",
+    "start_date": "2025-06-04",
+    "end_date": "2025-06-07",
     "days_number": 4
   },
   {
     "id": "14",
     "event_name": "فاتح محرم",
-    "start_date": "2025-07-30",
-    "end_date": "2025-07-30",
+    "start_date": "2025-07-07",
+    "end_date": "2025-07-07",
     "days_number": 1
   }
 ]
@@ -577,7 +577,7 @@ GET https://vacance-scolaire.pages.dev/api/ofppt/upcoming
     "id": "10",
     "event_name": "عيد الفطر",
     "start_date": "2025-03-29",
-    "end_date": "2025-04-02",
+    "end_date": "2025-03-31",
     "days_number": 4
   },
   {
@@ -597,15 +597,15 @@ GET https://vacance-scolaire.pages.dev/api/ofppt/upcoming
   {
     "id": "13",
     "event_name": "عيد الأضحى",
-    "start_date": "2025-06-06",
-    "end_date": "2025-06-09",
+    "start_date": "2025-06-04",
+    "end_date": "2025-06-07",
     "days_number": 4
   },
   {
     "id": "14",
     "event_name": "فاتح محرم",
-    "start_date": "2025-07-30",
-    "end_date": "2025-07-30",
+    "start_date": "2025-07-07",
+    "end_date": "2025-07-07",
     "days_number": 1
   }
 ]

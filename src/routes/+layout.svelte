@@ -5,6 +5,7 @@
     import { onMount } from 'svelte';
     import 'bootstrap-icons/font/bootstrap-icons.css';
     import './styles.css';
+    import Footer from '$lib/components/Footer.svelte';
 
     // Single source of truth for calendar type
     $: currentCalendar = $page.url.pathname.slice(1) || 'general';
@@ -27,10 +28,8 @@
 <nav class="header-nav">
     <div class="nav-left">
         {#if isDocsPage}
-            <a href="/" class="home-link">
-                <i class="bi bi-house"></i>
-                Home
-            </a>
+            <a href="/" class="home-link" aria-label="Home">
+                <i class="bi bi-house"></i></a>
         {/if}
     </div>
     <div class="nav-right">
@@ -67,6 +66,7 @@
 {/if}
 
 <slot />
+<Footer />
 
 <style>
     /* Mobile responsive styles */

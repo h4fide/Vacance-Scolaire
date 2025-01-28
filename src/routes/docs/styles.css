@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 2rem 1rem;  /* modified padding */
     line-height: 1.6;
+    font-family: 'Red Hat Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .api-header {
@@ -89,6 +90,9 @@
     overflow-x: auto;
     margin: 1rem 0;
     position: relative;
+    margin: 0;  /* Remove top margin */
+    border-top-left-radius: 0;  /* Remove top-left radius */
+    border-top-right-radius: 0;  /* Remove top-right radius */
 }
 
 /* Style non-highlighted code */
@@ -96,6 +100,7 @@
     color: #e9ecef;
     font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     font-size: 0.9rem;
+    padding-right: 3rem; /* Add padding to prevent text from going under the button */
 }
 
 /* Style highlighted JSON code */
@@ -112,16 +117,34 @@
 /* Add new styles */
 .copy-button {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 0.2rem;
+    right: 0.2rem;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: 4px;
-    color: #e9ecef;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
+    width: 30px;  /* Fixed width for icon */
+    height: 30px; /* Fixed height for icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: background-color 0.2s;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.copy-button::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23e6edf3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.copy-button.copied::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'%3E%3C/path%3E%3C/svg%3E");
 }
 
 .copy-button:hover {
@@ -145,8 +168,6 @@
     align-items: center;
     gap: 0.5rem;
 }
-
-
 
 .response-header {
     display: flex;
@@ -283,7 +304,6 @@ td {
     .api-header {
         padding: 3.5rem 1.5rem;
         margin: -1.5rem -1.5rem 2.5rem;
-        background: linear-gradient(145deg, #0d6efd, #2196f3); /* Adjusted gradient angle */
     }
 
     .api-header h1 {
@@ -340,6 +360,7 @@ td {
         white-space: pre-wrap;
         word-break: break-word;
         max-width: 100%;
+        padding-right: 3rem; /* Maintain padding in mobile view */
     }
 
     .response-title {
@@ -559,4 +580,165 @@ td {
     display: block;
     font-size: 1.1rem;
     border-bottom: 2px solid var(--border-color);
+}
+
+.tag {
+    display: inline-block;
+    background: #743b75;
+    color: #e6edf3;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px 4px 0 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #444;
+}
+
+/* Adjust code block border radius when tag is present */
+.tag + .code-block {
+    border-top-left-radius: 0;
+}
+
+.url-display {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.url-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.url-copy-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+}
+
+.url-copy-button:hover {
+    background: var(--primary-hover);
+}
+
+.url-copy-button.copied {
+    background: #198754;
+}
+
+.url-display {
+    background: #1e1e1e;
+    border-radius: 0 0 4px 4px;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
+}
+
+.url-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #e6edf3;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.url-copy-button {
+    color: #e6edf3;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    position: relative;
+    min-width: 10px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.url-copy-button::before {
+    content: '';
+    position: absolute;
+    left: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23e6edf3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'%3E%3C/path%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.4;
+}
+
+.url-copy-button:hover {
+    transform: translateY(-1px);
+}
+
+.url-copy-button:active {
+    transform: translateY(0);
+}
+
+.url-copy-button.copied {
+    background: #10B981;
+    padding-left: 2.4rem;
+}
+
+.url-copy-button.copied::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'%3E%3C/path%3E%3C/svg%3E");
+    left: 0.9rem;
+}
+
+.url-copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.url-copy-button.copied {
+    background: #198754;
+}
+
+.url-tag {
+    display: inline-block;
+    background: #409769;
+    color: #e6edf3;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px 4px 0 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #444;
+    margin-top: 1rem;
+}
+
+.url-tag + .url-display {
+    border-top-left-radius: 0;
+}
+
+/* Update responsive styles */
+@media (max-width: 768px) {
+    .url-copy-button {
+        padding: 0.4rem 0.8rem 0.4rem 2rem;
+        font-size: 0.8rem;
+        min-width: 80px;
+    }
+
+    .url-copy-button::before {
+        left: 0.6rem;
+        width: 14px;
+        height: 14px;
+    }
 }
