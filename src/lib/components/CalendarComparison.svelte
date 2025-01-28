@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { isDarkMode } from '../../routes/stores';
     
     type Event = {
         _id?: string | number;
@@ -94,6 +95,9 @@
             year: 'numeric'
         });
     }
+
+    // Add new state for mobile navigation
+    let activeMobileSection: 'general' | 'university' | 'ofppt' = 'general';
 </script>
 
 {#if loading}
@@ -102,9 +106,29 @@
     <div class="error">{error}</div>
 {:else}
     <div class="calendar-comparison">
-        <!-- Remove the standalone current indicator -->
-        
-        <!-- Header -->
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <button 
+                class="mobile-nav-btn general {activeMobileSection === 'general' ? 'active' : ''}"
+                on:click={() => activeMobileSection = 'general'}
+            >
+                General Education
+            </button>
+            <button 
+                class="mobile-nav-btn university {activeMobileSection === 'university' ? 'active' : ''}"
+                on:click={() => activeMobileSection = 'university'}
+            >
+                University
+            </button>
+            <button 
+                class="mobile-nav-btn ofppt {activeMobileSection === 'ofppt' ? 'active' : ''}"
+                on:click={() => activeMobileSection = 'ofppt'}
+            >
+                OFPPT
+            </button>
+        </div>
+
+        <!-- Desktop Header (hidden on mobile) -->
         <div class="comparison-header">
             <div class="header-item general">General Education</div>
             <div class="header-item university">University</div>
@@ -112,7 +136,7 @@
         </div>
 
         <!-- Calendar Items -->
-        <div class="comparison-grid">
+        <div class="comparison-grid" data-active-section={activeMobileSection}>
             {#each uniqueDates as date, index}
                 {@const gEvent = findEventByDate(generalData, date)}
                 {@const uEvent = findEventByDate(universityData, date)}
@@ -247,12 +271,23 @@
         text-align: center;
         font-weight: bold;
         border-radius: 0.375rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
 
-    .header-item.general { background: linear-gradient(120deg, #00c0a0, #006083); }
-    .header-item.university { background: linear-gradient(120deg, #9000d3, #3f006c); }
-    .header-item.ofppt { background: linear-gradient(120deg, #0031d3, #00196c); }
+    .header-item.general { 
+        background: linear-gradient(120deg, #00c0a0, #006083);
+        color: white;
+
+    }
+    .header-item.university { 
+        background: linear-gradient(120deg, #9000d3, #3f006c);
+        color: white;
+    }
+    .header-item.ofppt { 
+        background: linear-gradient(120deg, #0031d3, #00196c);
+        color: white;
+    }
 
     .comparison-grid {
         display: grid;
@@ -277,6 +312,8 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
     }
 
     .event-row.empty {
@@ -287,7 +324,7 @@
 
     .event-row.past {
         filter: grayscale(100%);
-        opacity: 0.8;
+        opacity: 0.4;
         transition: opacity 0.3s ease;
     }
 
@@ -296,13 +333,15 @@
     }
 
     .event-row.past .date-block {
-        background: linear-gradient(160deg, #666, #333) !important;
+        background: var(--header-bg) !important;
+        border: 1px solid var(--border-color);
+        color: var(--text-color) !important; /* Add this line to ensure text visibility */
     }
 
     .event-row.current {
         position: relative;
         border: 1px solid rgba(34, 197, 94, 0.3);
-        background-color: rgba(34, 197, 94, 0.05);
+        background-color: color-mix(in srgb, var(--bg-color) 95%, rgb(34 197 94));
         box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
         animation: glowPulse 2s ease-in-out infinite;
         transition: all 0.3s ease;
@@ -333,11 +372,22 @@
     .date-block {
         padding: 0.75rem;
         border-radius: 0.375rem;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    .date-block.general { background: linear-gradient(160deg, #00c0a0, #006083); }
-    .date-block.university { background: linear-gradient(160deg, #9000d3, #3f006c); }
-    .date-block.ofppt { background: linear-gradient(160deg, #0031d3, #00196c); }
+    .date-block.general { 
+        background: linear-gradient(160deg, #00c0a0, #006083);
+        color: white;
+    }
+    .date-block.university { 
+        background: linear-gradient(160deg, #9000d3, #3f006c);
+        color: white;
+    }
+    .date-block.ofppt { 
+        background: linear-gradient(160deg, #0031d3, #00196c);
+        color: white;
+    }
 
     .event-duration {
         margin-top: 0.5rem;
@@ -365,9 +415,9 @@
         margin: 2rem 0;
         background: linear-gradient(
             90deg, 
-            rgba(144, 0, 211, 0.5) 0%,
-            rgba(144, 0, 211, 0.8) 50%,
-            rgba(144, 0, 211, 0.5) 100%
+            color-mix(in srgb, var(--text-color) 20%, transparent),
+            color-mix(in srgb, var(--text-color) 80%, transparent),
+            color-mix(in srgb, var(--text-color) 20%, transparent)
         );
         display: flex;
         justify-content: center;
@@ -378,7 +428,7 @@
         position: absolute;
         background-color: var(--bg-color);
         padding: 0 1rem;
-        color: rgb(144, 0, 211);
+        color: var(--text-color);
         font-weight: bold;
         font-size: 0.875rem;
         letter-spacing: 0.05em;
@@ -388,5 +438,85 @@
         position: relative;
         border-radius: 0.5rem;
         background-color: rgba(144, 0, 211, 0.02);
+    }
+
+    .mobile-nav {
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: var(--bg-color);
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-nav-btn {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        color: white;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+
+    .mobile-nav-btn.active {
+        opacity: 1;
+    }
+
+    .mobile-nav-btn.general { 
+        background: linear-gradient(120deg, #00c0a0, #006083);
+        color: white;
+    }
+    .mobile-nav-btn.university { 
+        background: linear-gradient(120deg, #9000d3, #3f006c);
+        color: white;
+    }
+    .mobile-nav-btn.ofppt { 
+        background: linear-gradient(120deg, #0031d3, #00196c);
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-nav {
+            display: grid;
+        }
+
+        .comparison-header {
+            display: none;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .event-row {
+            display: none;
+        }
+
+        /* Show only active section */
+        .comparison-grid[data-active-section="general"] .event-row:nth-child(1),
+        .comparison-grid[data-active-section="university"] .event-row:nth-child(2),
+        .comparison-grid[data-active-section="ofppt"] .event-row:nth-child(3) {
+            display: flex;
+        }
+
+        .current-indicator {
+            left: -30px;
+        }
+
+        .calendar-comparison {
+            margin: 1rem;
+            padding: 0;
+        }
+
+        .next-separator {
+            margin: 1.5rem 0;
+        }
     }
 </style>
