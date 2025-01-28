@@ -1,8 +1,24 @@
 # Vacances Scolaires Maroc
 
+<div align="center">
+  <img src="static\favicon.png" alt="logo" width="100" height="100">
+</div>
+<br>
+<div align="center">
+    <a href="https://vacance-scolaire.pages.dev/docs">
+        <img src="https://img.shields.io/badge/API Documentation-Here-blue?style=for-the-badge">
+    </a>
+    </a>
+</div>
+<br>
+
+---
+
 `EN` An API and web interface for accessing school holiday schedules in Morocco, including general education, university, and OFPPT calendars.
->
+
 `FR` Une API et une interface web pour accéder aux calendriers des vacances scolaires au Maroc, y compris les calendriers de l'enseignement général, universitaire et de l'OFPPT.
+
+`AR`  برمجية وواجهة ويب للوصول إلى جداول العطل المدرسية في المغرب ، بما في ذلك لائحة العطل العامة للتعليم والجامعة والمعهد الوطني للتكوين المهني
 
 ## Features
 
