@@ -7,7 +7,7 @@ export const endpoints = [
         description: 'Get API information and available endpoints',
         example: `${baseUrl}`,
         response: {
-            "message": "Welcome to the Vacances Scolaires API",
+            "message": "Vacances Scolaires 2024-2025",
             "endpoints": {
                 "general": {
                     "all": "/api/general",
@@ -36,8 +36,8 @@ export const endpoints = [
             {
                 "_id": 1,
                 "eventname": "عيد المولد النبوي",
-                "start_date": "2024-09-04",
-                "end_date": "2024-09-05",
+                "start_date": "2024-09-15",
+                "end_date": "2024-09-16",
                 "days_number": 2
             },
             {
@@ -212,8 +212,8 @@ export const endpoints = [
             {
                 "_id": 1,
                 "eventname": "عيد المولد النبوي",
-                "start_date": "2024-09-04",
-                "end_date": "2024-09-05",
+                "start_date": "2024-09-15",
+                "end_date": "2024-09-16",
                 "days_number": 2
             },
             {
@@ -339,8 +339,8 @@ export const endpoints = [
             {
                 "id": "1",
                 "event_name": "عيد المولد النبوي الشريف",
-                "start_date": "2024-09-25",
-                "end_date": "2024-09-26",
+                "start_date": "2024-09-15",
+                "end_date": "2024-09-16",
                 "days_number": 2
             },
             {

@@ -9,7 +9,7 @@ const corsHeaders = {
 
 export const GET: RequestHandler = async () => {
     return json({
-        message: 'Welcome to the Vacances Scolaires API',
+        message: 'Vacances Scolaires 2024-2025',
         endpoints: {
             general: {
                 all: '/api/general',

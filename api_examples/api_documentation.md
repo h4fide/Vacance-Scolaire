@@ -16,7 +16,7 @@ GET https://vacance-scolaire.pages.dev/api
 **Example Response:**
 ```json
 {
-  "message": "Welcome to the Vacances Scolaires API",
+  "message": "Vacances Scolaires 2024-2025",
   "endpoints": {
     "general": {
       "all": "/api/general",
