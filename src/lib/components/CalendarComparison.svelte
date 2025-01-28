@@ -21,14 +21,29 @@
     function getAllDates(general: Event[], university: Event[], ofppt: Event[]): string[] {
         const dates = new Set<string>();
         [...general, ...university, ...ofppt].forEach(event => {
-            dates.add(event.start_date);
+            dates.add(event.end_date);
         });
         return Array.from(dates).sort();
     }
 
     // Function to find event for a specific date
     function findEventByDate(events: Event[], date: string): Event | null {
-        return events.find(event => event.start_date === date) || null;
+        return events.find(event => event.end_date === date) || null;
+    }
+
+    // Add this function to check if an event is in the past
+    function isEventInPast(event: Event): boolean {
+        const today = new Date();
+        const endDate = new Date(event.end_date);
+        return endDate < today;
+    }
+
+    // Add this function to check if an event is current
+    function isEventCurrent(event: Event): boolean {
+        const today = new Date();
+        const startDate = new Date(event.start_date);
+        const endDate = new Date(event.end_date);
+        return startDate <= today && today <= endDate;
     }
 
     let uniqueDates: string[] = [];
@@ -48,7 +63,7 @@
             // Sort data by ID after fetching
             generalData = generalData.sort((a, b) => Number(a._id) - Number(b._id));
             universityData = universityData.sort((a, b) => Number(a._id) - Number(b._id));
-            ofpptData = ofpptData.sort((a, b) => Number(a.id) - Number(b.id));
+            ofpptData = ofpptData.sort((a, b) => Number(b.id) - Number(b.id));
 
             uniqueDates = getAllDates(generalData, universityData, ofpptData);
             loading = false;
@@ -75,6 +90,8 @@
     <div class="error">{error}</div>
 {:else}
     <div class="calendar-comparison">
+        <!-- Remove the standalone current indicator -->
+        
         <!-- Header -->
         <div class="comparison-header">
             <div class="header-item general">General Education</div>
@@ -84,56 +101,61 @@
 
         <!-- Calendar Items -->
         <div class="comparison-grid">
-            <!-- General Education Events -->
-            <div class="education-column">
-                {#each uniqueDates as date}
-                    {@const event = findEventByDate(generalData, date)}
-                    <div class="event-row {event ? '' : 'empty'}">
-                        {#if event}
-                            <div class="event-name">{event.eventname}</div>
+            {#each uniqueDates as date}
+                {@const gEvent = findEventByDate(generalData, date)}
+                {@const uEvent = findEventByDate(universityData, date)}
+                {@const oEvent = findEventByDate(ofpptData, date)}
+                {@const hasCurrentEvent = (gEvent && isEventCurrent(gEvent)) || 
+                                        (uEvent && isEventCurrent(uEvent)) || 
+                                        (oEvent && isEventCurrent(oEvent))}
+                
+                <div class="comparison-row {hasCurrentEvent ? 'has-current' : ''}">
+                    {#if hasCurrentEvent}
+                        <div class="current-indicator">
+                            <span class="current-tag">CURRENT</span>
+                        </div>
+                    {/if}
+                    
+                    <div class="event-row {gEvent ? '' : 'empty'} 
+                        {gEvent && isEventInPast(gEvent) ? 'past' : ''} 
+                        {gEvent && isEventCurrent(gEvent) ? 'current' : ''}">
+                        {#if gEvent}
+                            <div class="event-name">{gEvent.eventname}</div>
                             <div class="date-block general">
-                                <div>Start: {formatDate(event.start_date)}</div>
-                                <div>End: {formatDate(event.end_date)}</div>
+                                <div>Start: {formatDate(gEvent.start_date)}</div>
+                                <div>End: {formatDate(gEvent.end_date)}</div>
                             </div>
-                            <div class="event-duration">Duration: {event.days_number} days</div>
+                            <div class="event-duration">Duration: {gEvent.days_number} days</div>
                         {/if}
                     </div>
-                {/each}
-            </div>
 
-            <!-- University Events -->
-            <div class="education-column">
-                {#each uniqueDates as date}
-                    {@const event = findEventByDate(universityData, date)}
-                    <div class="event-row {event ? '' : 'empty'}">
-                        {#if event}
-                            <div class="event-name">{event.eventname}</div>
+                    <div class="event-row {uEvent ? '' : 'empty'} 
+                        {uEvent && isEventInPast(uEvent) ? 'past' : ''} 
+                        {uEvent && isEventCurrent(uEvent) ? 'current' : ''}">
+                        {#if uEvent}
+                            <div class="event-name">{uEvent.eventname}</div>
                             <div class="date-block university">
-                                <div>Start: {formatDate(event.start_date)}</div>
-                                <div>End: {formatDate(event.end_date)}</div>
+                                <div>Start: {formatDate(uEvent.start_date)}</div>
+                                <div>End: {formatDate(uEvent.end_date)}</div>
                             </div>
-                            <div class="event-duration">Duration: {event.days_number} days</div>
+                            <div class="event-duration">Duration: {uEvent.days_number} days</div>
                         {/if}
                     </div>
-                {/each}
-            </div>
 
-            <!-- OFPPT Events -->
-            <div class="education-column">
-                {#each uniqueDates as date}
-                    {@const event = findEventByDate(ofpptData, date)}
-                    <div class="event-row {event ? '' : 'empty'}">
-                        {#if event}
-                            <div class="event-name">{event.event_name}</div>
+                    <div class="event-row {oEvent ? '' : 'empty'} 
+                        {oEvent && isEventInPast(oEvent) ? 'past' : ''} 
+                        {oEvent && isEventCurrent(oEvent) ? 'current' : ''}">
+                        {#if oEvent}
+                            <div class="event-name">{oEvent.event_name}</div>
                             <div class="date-block ofppt">
-                                <div>Start: {formatDate(event.start_date)}</div>
-                                <div>End: {formatDate(event.end_date)}</div>
+                                <div>Start: {formatDate(oEvent.start_date)}</div>
+                                <div>End: {formatDate(oEvent.end_date)}</div>
                             </div>
-                            <div class="event-duration">Duration: {event.days_number} days</div>
+                            <div class="event-duration">Duration: {oEvent.days_number} days</div>
                         {/if}
                     </div>
-                {/each}
-            </div>
+                </div>
+            {/each}
         </div>
     </div>
 {/if}
@@ -143,6 +165,36 @@
         max-width: 1024px;
         margin: 2rem auto;
         padding: 1rem;
+    }
+
+    .comparison-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        position: relative; /* Add position relative */
+    }
+
+    .current-indicator {
+        position: absolute;
+        left: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .current-tag {
+        background-color: #22c55e;
+        color: white;
+        padding: 8px 4px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        letter-spacing: 1px;
     }
 
     .comparison-header {
@@ -159,22 +211,24 @@
         border-radius: 0.375rem;
     }
 
-    .header-item.general { background-color: var(--header-bg); }
-    .header-item.university { background-color: var(--header-bg); }
-    .header-item.ofppt { background-color: var(--header-bg); }
+
+    .header-item.general { background: linear-gradient(120deg, #00c0a0, #006083); }
+    .header-item.university { background: linear-gradient(120deg, #9000d3, #3f006c); }
+    .header-item.ofppt { background: linear-gradient(120deg, #0031d3, #00196c); }
 
     .comparison-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
         gap: 1rem;
         align-items: start;
     }
 
-    .education-column {
-        display: flex;
-        flex-direction: column;
+    .comparison-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
+
 
     .event-row {
         min-height: 140px; /* Set a fixed minimum height for consistency */
@@ -193,6 +247,41 @@
         opacity: 0.5;
     }
 
+    .event-row.past {
+        filter: grayscale(100%);
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .event-row.past:hover {
+        opacity: 0.95;
+    }
+
+    .event-row.past .date-block {
+        background: linear-gradient(160deg, #666, #333) !important;
+    }
+
+    .event-row.current {
+        position: relative;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        background-color: transparent;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .event-row.current::before {
+        content: '';
+        position: absolute;
+        left: -1rem;
+        top: 50%;
+        width: 1rem;
+        height: 2px;
+        border-top: 2px dashed #22c55e;
+    }
+
+    /* Remove or comment out the existing .current::after animation */
+    /* .event-row.current::after { ... } */
+    /* @keyframes blink { ... } */
+
     .event-name {
         font-weight: bold;
         margin-bottom: 0.5rem;
@@ -203,9 +292,9 @@
         border-radius: 0.375rem;
     }
 
-    .date-block.general { background-color: #93c5fd; }
-    .date-block.university { background-color: #c4b5fd; }
-    .date-block.ofppt { background-color: #6ee7b7; }
+    .date-block.general { background: linear-gradient(160deg, #00c0a0, #006083); }
+    .date-block.university { background: linear-gradient(160deg, #9000d3, #3f006c); }
+    .date-block.ofppt { background: linear-gradient(160deg, #0031d3, #00196c); }
 
     .event-duration {
         margin-top: 0.5rem;
