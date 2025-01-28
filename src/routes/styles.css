@@ -32,18 +32,32 @@ body {
 }
 
 select {
-    padding: 8px 16px;
+    padding: 10px 20px;
     font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
     background-color: var(--bg-color);
     color: var(--text-color);
-    border-color: var(--border-color);
     cursor: pointer;
+    min-width: 200px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+    padding-right: 40px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 select:hover {
-    border-color: #2196f3;
+    border-color: #0d6efd;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.1);
+}
+
+select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
 }
 
 .header-nav {
@@ -110,7 +124,7 @@ i.bi {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    text-decoration: underline;
+    text-decoration: underline; 
     text-decoration-color: #0d6efd;
     text-underline-offset: 4px;
     color: #0d6efd;
