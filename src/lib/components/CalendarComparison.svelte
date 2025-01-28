@@ -46,6 +46,18 @@
         return startDate <= today && today <= endDate;
     }
 
+    // Add this helper function
+    function isUpcomingEvent(event: Event): boolean {
+        const today = new Date();
+        const startDate = new Date(event.start_date);
+        return startDate > today;
+    }
+
+    // Add this helper function
+    function hasCurrentEvents(general: Event[], university: Event[], ofppt: Event[]): boolean {
+        return [...general, ...university, ...ofppt].some(event => isEventCurrent(event));
+    }
+
     let uniqueDates: string[] = [];
 
     onMount(async () => {
@@ -101,15 +113,38 @@
 
         <!-- Calendar Items -->
         <div class="comparison-grid">
-            {#each uniqueDates as date}
+            {#each uniqueDates as date, index}
                 {@const gEvent = findEventByDate(generalData, date)}
                 {@const uEvent = findEventByDate(universityData, date)}
                 {@const oEvent = findEventByDate(ofpptData, date)}
                 {@const hasCurrentEvent = (gEvent && isEventCurrent(gEvent)) || 
                                         (uEvent && isEventCurrent(uEvent)) || 
                                         (oEvent && isEventCurrent(oEvent))}
+                {@const isUpcoming = (gEvent && isUpcomingEvent(gEvent)) || 
+                                    (uEvent && isUpcomingEvent(uEvent)) || 
+                                    (oEvent && isUpcomingEvent(oEvent))}
                 
-                <div class="comparison-row {hasCurrentEvent ? 'has-current' : ''}">
+                <!-- Add the NEXT separator -->
+                {#if isUpcoming && 
+                    ((hasCurrentEvents(generalData, universityData, ofpptData) && 
+                    !hasCurrentEvent && 
+                    !uniqueDates.slice(0, index).some(d => 
+                        findEventByDate(generalData, d) && isUpcomingEvent(findEventByDate(generalData, d)!) ||
+                        findEventByDate(universityData, d) && isUpcomingEvent(findEventByDate(universityData, d)!) ||
+                        findEventByDate(ofpptData, d) && isUpcomingEvent(findEventByDate(ofpptData, d)!)
+                    )) ||
+                    (!hasCurrentEvents(generalData, universityData, ofpptData) && 
+                    !uniqueDates.slice(0, index).some(d => 
+                        findEventByDate(generalData, d) && isUpcomingEvent(findEventByDate(generalData, d)!) ||
+                        findEventByDate(universityData, d) && isUpcomingEvent(findEventByDate(universityData, d)!) ||
+                        findEventByDate(ofpptData, d) && isUpcomingEvent(findEventByDate(ofpptData, d)!)
+                    )))}
+                    <div class="next-separator">
+                        <span class="next-label">NEXT</span>
+                    </div>
+                {/if}
+
+                <div class="comparison-row {hasCurrentEvent ? 'has-current' : ''} {isUpcoming ? 'upcoming' : ''}">
                     {#if hasCurrentEvent}
                         <div class="current-indicator">
                             <span class="current-tag">CURRENT</span>
@@ -155,6 +190,9 @@
                         {/if}
                     </div>
                 </div>
+                {#if isUpcoming && index < uniqueDates.length - 1}
+                    <div class="row-separator"></div>
+                {/if}
             {/each}
         </div>
     </div>
@@ -264,23 +302,28 @@
     .event-row.current {
         position: relative;
         border: 1px solid rgba(34, 197, 94, 0.3);
-        background-color: transparent;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        background-color: rgba(34, 197, 94, 0.05);
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+        animation: glowPulse 2s ease-in-out infinite;
+        transition: all 0.3s ease;
     }
 
-    .event-row.current::before {
-        content: '';
-        position: absolute;
-        left: -1rem;
-        top: 50%;
-        width: 1rem;
-        height: 2px;
-        border-top: 2px dashed #22c55e;
+    .event-row.current:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
     }
 
-    /* Remove or comment out the existing .current::after animation */
-    /* .event-row.current::after { ... } */
-    /* @keyframes blink { ... } */
+    @keyframes glowPulse {
+        0% {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+        }
+        50% {
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+        }
+        100% {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+        }
+    }
 
     .event-name {
         font-weight: bold;
@@ -310,5 +353,40 @@
 
     .error {
         color: #dc2626;
+    }
+
+    .row-separator {
+        display: none;
+    }
+
+    .next-separator {
+        position: relative;
+        height: 2px;
+        margin: 2rem 0;
+        background: linear-gradient(
+            90deg, 
+            rgba(144, 0, 211, 0.5) 0%,
+            rgba(144, 0, 211, 0.8) 50%,
+            rgba(144, 0, 211, 0.5) 100%
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .next-label {
+        position: absolute;
+        background-color: var(--bg-color);
+        padding: 0 1rem;
+        color: rgb(144, 0, 211);
+        font-weight: bold;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+    }
+
+    .comparison-row.upcoming {
+        position: relative;
+        border-radius: 0.5rem;
+        background-color: rgba(144, 0, 211, 0.02);
     }
 </style>
