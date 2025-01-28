@@ -462,6 +462,8 @@
         cursor: pointer;
         opacity: 0.7;
         transition: opacity 0.3s ease;
+        font-weight: bold   ;
+        font-family:Arial, Helvetica, sans-serif;
     }
 
     .mobile-nav-btn.active {
