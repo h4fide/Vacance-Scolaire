@@ -8,6 +8,7 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import '../app.css';
+    import CalendarComparison from '$lib/components/CalendarComparison.svelte';
     
     $: calendarData = {
         general: schoolCalendar as SchoolAndUniversityEvent[],
@@ -243,4 +244,6 @@
             </tbody>
         </table>
     </div>
+
+    <CalendarComparison />
 </main>

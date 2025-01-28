@@ -2,8 +2,8 @@
   {
       "_id": 1,
       "eventname": "عيد المولد النبوي",
-      "start_date": "2024-09-04",
-      "end_date": "2024-09-05",
+      "start_date": "2024-09-15",
+      "end_date": "2024-09-16",
       "days_number": 2
   },
   {
@@ -72,13 +72,13 @@
   {
       "_id": 11,
       "eventname": "عيد الفطر",
-      "start_date": "2025-04-27",
-      "end_date": "2025-04-30",
+      "start_date": "2025-03-29",
+      "end_date": "2025-03-31",
       "days_number": "3-4"
   },
   {
       "_id": 12,
-      "eventname": "عيد العمال",
+      "eventname": "عيد الشغل",
       "start_date": "2025-05-01",
       "end_date": "2025-05-01",
       "days_number": 1
@@ -93,8 +93,8 @@
   {
       "_id": 14,
       "eventname": "عيد الأضحى",
-      "start_date": "2025-06-06",
-      "end_date": "2025-06-08",
+      "start_date": "2025-06-05",
+      "end_date": "2025-06-07",
       "days_number": 3
   },
   {

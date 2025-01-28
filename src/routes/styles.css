@@ -60,6 +60,18 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
 }
 
+
+option {
+    font-weight: normal;
+    display: block;
+    padding-block-start: 0px;
+    padding-block-end: 1px;
+    min-block-size: 1.2em;
+    padding-inline: 2px;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
 .header-nav {
     display: flex;
     justify-content: space-between;
