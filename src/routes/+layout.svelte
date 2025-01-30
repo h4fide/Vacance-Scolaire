@@ -28,7 +28,7 @@
 <nav class="header-nav">
     <div class="nav-left">
         {#if isDocsPage}
-            <a href="/" class="home-link" aria-label="Home">
+            <a href="https://vacance-scolaire.pages.dev" class="home-link" aria-label="Home">
                 <i class="bi bi-house"></i></a>
         {/if}
     </div>
