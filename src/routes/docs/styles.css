@@ -439,6 +439,10 @@ td {
     .copy-button {
         padding: 0.15rem 0.4rem;
         font-size: 0.75rem;
+        display: inline-block;
+        opacity: 0;
+        
+        
     }
 
     .response-block pre {
@@ -731,9 +735,9 @@ td {
 /* Update responsive styles */
 @media (max-width: 768px) {
     .url-copy-button {
-        padding: 0.4rem 0.8rem 0.4rem 2rem;
-        font-size: 0.8rem;
-        min-width: 80px;
+        font-size: 0rem;
+        min-width: 0px;
+        margin-right: -0.7rem;
     }
 
     .url-copy-button::before {
