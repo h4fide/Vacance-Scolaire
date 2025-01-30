@@ -501,15 +501,33 @@
             display: none;
         }
 
-        /* Show only active section */
-        .comparison-grid[data-active-section="general"] .event-row:nth-child(1),
-        .comparison-grid[data-active-section="university"] .event-row:nth-child(2),
-        .comparison-grid[data-active-section="ofppt"] .event-row:nth-child(3) {
+        /* Show only active section and non-empty rows */
+        .comparison-grid[data-active-section="general"] .event-row:not(.empty):nth-child(1),
+        .comparison-grid[data-active-section="university"] .event-row:not(.empty):nth-child(2),
+        .comparison-grid[data-active-section="ofppt"] .event-row:not(.empty):nth-child(3) {
             display: flex;
         }
 
-        .current-indicator {
-            left: -30px;
+        /* Remove current event indicators and styling on mobile */
+        .current-indicator,
+        .current-tag {
+            display: none;
+        }
+
+        .event-row.current {
+            display: none !important; /* Override all other display rules */
+        }
+
+        .event-row.current {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            box-shadow: none;
+            animation: none;
+        }
+
+        .event-row.current:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         .calendar-comparison {
@@ -519,6 +537,19 @@
 
         .next-separator {
             margin: 1.5rem 0;
+        }
+
+        /* Updated selectors for mobile view */
+        .comparison-grid[data-active-section="general"] .comparison-row .event-row:nth-child(1):not(.empty):not(.current),
+        .comparison-grid[data-active-section="university"] .comparison-row .event-row:nth-child(2):not(.empty):not(.current),
+        .comparison-grid[data-active-section="ofppt"] .comparison-row .event-row:nth-child(3):not(.empty):not(.current) {
+            display: flex;
+        }
+
+        /* Hide current event styles for university and ofppt sections */
+        .comparison-grid[data-active-section="university"] .comparison-row.has-current,
+        .comparison-grid[data-active-section="ofppt"] .comparison-row.has-current {
+            background: none;
         }
     }
 </style>
