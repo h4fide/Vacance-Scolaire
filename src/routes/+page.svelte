@@ -152,7 +152,7 @@
     }
 </script>
 
-<main>
+<main class="page-container">
     <h1>
         {#if $selectedCalendarType === 'general'}
             General Calendar Events
@@ -187,7 +187,7 @@
         </div>
     {/if}
     
-    <div class="table-container">
+    <div class="table-container main-content">
         <select bind:value={$selectedFilter} class="filter-select">
             <option value="all">All Events</option>
             <option value="current">Current & Upcoming</option>
