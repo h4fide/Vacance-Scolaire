@@ -42,13 +42,25 @@
         }
     }
 
+    // Add this new helper function
+    function adjustEndDate(dateString: string): Date {
+        const date = new Date(dateString);
+        // If it's midnight (00:00:00), set it to 23:59:59 of the previous day
+        if (date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+            date.setHours(23, 59, 59);
+        }
+        return date;
+    }
+
     function formatDate(dateString: string): string {
         const date = new Date(dateString);
         const formattedDate = date.toLocaleDateString('fr-FR', {
             weekday: 'long',
             day: 'numeric',
             month: 'long',
-            year: 'numeric'
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
         });
         // Capitalize first letter of day and month
         return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
@@ -62,10 +74,10 @@
 
     // Sort and categorize events
     $: events = {
-        past: calendarData.filter(event => new Date(event.end_date) < today)
+        past: calendarData.filter(event => adjustEndDate(event.end_date) < today)
             .sort((a, b) => new Date(b.end_date).getTime() - new Date(a.end_date).getTime()), // Changed to descending order
         current: calendarData.filter(event => 
-            new Date(event.start_date) <= today && new Date(event.end_date) >= today
+            new Date(event.start_date) <= today && adjustEndDate(event.end_date) >= today
         ),
         upcoming: calendarData.filter(event => new Date(event.start_date) > today)
             .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
@@ -81,7 +93,7 @@
 
     function calculateTimeLeft(targetDate: string) {
         const now = new Date().getTime();
-        const target = new Date(targetDate).getTime();
+        const target = adjustEndDate(targetDate).getTime();
         const difference = target - now;
 
         return {
@@ -205,10 +217,10 @@
             </thead>
             <tbody>
                 {#each filteredEvents().currentAndUpcoming as event}
-                    <tr class={new Date(event.start_date) <= today && new Date(event.end_date) >= today ? 'current-event' : ''}>
+                    <tr class={new Date(event.start_date) <= today && adjustEndDate(event.end_date) >= today ? 'current-event' : ''}>
                         <td>{getEventName(event)}</td>
                         <td>
-                            {#if new Date(event.start_date) <= today && new Date(event.end_date) >= today}
+                            {#if new Date(event.start_date) <= today && adjustEndDate(event.end_date) >= today}
                                 <span class="status current">Current</span>
                             {:else}
                                 <span class="status upcoming">{getRemainingDays(event.start_date)}</span>
