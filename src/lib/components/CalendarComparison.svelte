@@ -27,27 +27,32 @@
         return Array.from(dates).sort();
     }
 
+    // Add helper function to adjust end dates to end of day
+    function getEndOfDay(dateString: string): Date {
+        const date = new Date(dateString);
+        date.setHours(23, 59, 59, 999);
+        return date;
+    }
+
     // Function to find event for a specific date
     function findEventByDate(events: Event[], date: string): Event | null {
-        return events.find(event => event.end_date === date) || null;
+        return events.find(event => getEndOfDay(event.end_date).getTime() === getEndOfDay(date).getTime()) || null;
     }
 
-    // Add this function to check if an event is in the past
+    // Update isEventInPast function
     function isEventInPast(event: Event): boolean {
         const today = new Date();
-        const endDate = new Date(event.end_date);
-        return endDate < today;
+        return getEndOfDay(event.end_date) < today;
     }
 
-    // Add this function to check if an event is current
+    // Update isEventCurrent function
     function isEventCurrent(event: Event): boolean {
         const today = new Date();
         const startDate = new Date(event.start_date);
-        const endDate = new Date(event.end_date);
-        return startDate <= today && today <= endDate;
+        return startDate <= today && getEndOfDay(event.end_date) >= today;
     }
 
-    // Add this helper function
+    // Update isUpcomingEvent function
     function isUpcomingEvent(event: Event): boolean {
         const today = new Date();
         const startDate = new Date(event.start_date);
