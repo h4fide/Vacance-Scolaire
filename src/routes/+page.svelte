@@ -136,7 +136,8 @@
             const end = new Date(endDate);
             const diff = today.getTime() - end.getTime();
             const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            return days === 1 ? 'Yesterday' : `${days} days ago`;
+            const adjustedDays = Math.ceil(days - 1);
+            return adjustedDays === 1 ? 'Yesterday' : `${adjustedDays} days ago`;
         } catch (error) {
             return 'Date error';
         }
