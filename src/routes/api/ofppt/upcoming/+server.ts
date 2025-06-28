@@ -1,7 +1,7 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import ofpptCalendar from '../../../../database/Calendrier _OFPPT.json';
+import ofpptCalendar from '../../../../database/Calendrier_OFPPT.json';
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',

@@ -4,7 +4,7 @@
     import type { CalendarEvent, SchoolAndUniversityEvent, OFPPTEvent } from './types';
     import schoolCalendar from '../database/Calendrier_Scolaire.json';
     import universityCalendar from '../database/Calendrier_Universitaire.json';
-    import ofpptCalendar from '../database/Calendrier _OFPPT.json';
+    import ofpptCalendar from '../database/Calendrier_OFPPT.json';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import '../app.css';
