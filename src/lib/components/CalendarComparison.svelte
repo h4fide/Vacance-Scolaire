@@ -12,31 +12,58 @@
         days_number: number | string;
     };
 
+    type DateRange = { start: string; end: string };
+
     let generalData: Event[] = [];
     let universityData: Event[] = [];
     let ofpptData: Event[] = [];
     let loading = true;
     let error: string | null = null;
 
-    // Function to get all unique dates and sort them
-    function getAllDates(general: Event[], university: Event[], ofppt: Event[]): string[] {
-        const dates = new Set<string>();
-        [...general, ...university, ...ofppt].forEach(event => {
-            dates.add(event.end_date);
+    // Function to get all unique (start, end) ranges and sort by start then end
+    function getAllRanges(general: Event[], university: Event[], ofppt: Event[]): DateRange[] {
+        const map = new Map<string, DateRange>();
+        const add = (e: Event) => {
+            if (!e.start_date || !e.end_date) return;
+            const key = `${getStartOfDay(e.start_date).toISOString()}|${getStartOfDay(e.end_date).toISOString()}`;
+            if (!map.has(key)) {
+                map.set(key, { start: e.start_date, end: e.end_date });
+            }
+        };
+        [...general, ...university, ...ofppt].forEach(add);
+        return Array.from(map.values()).sort((a, b) => {
+            const as = new Date(a.start).getTime();
+            const bs = new Date(b.start).getTime();
+            if (as !== bs) return as - bs;
+            return new Date(a.end).getTime() - new Date(b.end).getTime();
         });
-        return Array.from(dates).sort();
     }
 
-    // Add helper function to adjust end dates to end of day
+    // Helper: get start of day for a date string
+    function getStartOfDay(dateString: string): Date {
+        const date = new Date(dateString);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+
+    // Helper: get end of day for a date string
     function getEndOfDay(dateString: string): Date {
         const date = new Date(dateString);
         date.setHours(23, 59, 59, 999);
         return date;
     }
 
-    // Function to find event for a specific date
-    function findEventByDate(events: Event[], date: string): Event | null {
-        return events.find(event => getEndOfDay(event.end_date).getTime() === getEndOfDay(date).getTime()) || null;
+    // Function to find event for a specific (start, end) range
+    function findEventByRange(events: Event[], range: DateRange): Event | null {
+        return (
+            events.find(
+                (event) =>
+                    event.start_date &&
+                    event.end_date &&
+                    getStartOfDay(event.start_date).getTime() === getStartOfDay(range.start).getTime() &&
+                    getStartOfDay(event.end_date).getTime() === getStartOfDay(range.end).getTime()
+            ) || null
+        );
     }
 
     // Update isEventInPast function
@@ -64,7 +91,7 @@
         return [...general, ...university, ...ofppt].some(event => isEventCurrent(event));
     }
 
-    let uniqueDates: string[] = [];
+    let uniqueRanges: DateRange[] = [];
 
     onMount(async () => {
         try {
@@ -81,9 +108,10 @@
             // Sort data by ID after fetching
             generalData = generalData.sort((a, b) => Number(a._id) - Number(b._id));
             universityData = universityData.sort((a, b) => Number(a._id) - Number(b._id));
-            ofpptData = ofpptData.sort((a, b) => Number(b.id) - Number(b.id));
+            // fix: sort ofppt data similarly (use a._id if present, fallback to a.id)
+            ofpptData = ofpptData.sort((a, b) => Number(a._id ?? a.id ?? 0) - Number(b._id ?? b.id ?? 0));
 
-            uniqueDates = getAllDates(generalData, universityData, ofpptData);
+            uniqueRanges = getAllRanges(generalData, universityData, ofpptData);
             loading = false;
         } catch (err) {
             error = 'Failed to fetch data';
@@ -142,10 +170,10 @@
 
         <!-- Calendar Items -->
         <div class="comparison-grid" data-active-section={activeMobileSection}>
-            {#each uniqueDates as date, index}
-                {@const gEvent = findEventByDate(generalData, date)}
-                {@const uEvent = findEventByDate(universityData, date)}
-                {@const oEvent = findEventByDate(ofpptData, date)}
+            {#each uniqueRanges as range, index}
+                {@const gEvent = findEventByRange(generalData, range)}
+                {@const uEvent = findEventByRange(universityData, range)}
+                {@const oEvent = findEventByRange(ofpptData, range)}
                 {@const hasCurrentEvent = (gEvent && isEventCurrent(gEvent)) || 
                                         (uEvent && isEventCurrent(uEvent)) || 
                                         (oEvent && isEventCurrent(oEvent))}
@@ -157,16 +185,16 @@
                 {#if isUpcoming && 
                     ((hasCurrentEvents(generalData, universityData, ofpptData) && 
                     !hasCurrentEvent && 
-                    !uniqueDates.slice(0, index).some(d => 
-                        findEventByDate(generalData, d) && isUpcomingEvent(findEventByDate(generalData, d)!) ||
-                        findEventByDate(universityData, d) && isUpcomingEvent(findEventByDate(universityData, d)!) ||
-                        findEventByDate(ofpptData, d) && isUpcomingEvent(findEventByDate(ofpptData, d)!)
+                    !uniqueRanges.slice(0, index).some(r => 
+                        (findEventByRange(generalData, r) && isUpcomingEvent(findEventByRange(generalData, r)!)) ||
+                        (findEventByRange(universityData, r) && isUpcomingEvent(findEventByRange(universityData, r)!)) ||
+                        (findEventByRange(ofpptData, r) && isUpcomingEvent(findEventByRange(ofpptData, r)!))
                     )) ||
                     (!hasCurrentEvents(generalData, universityData, ofpptData) && 
-                    !uniqueDates.slice(0, index).some(d => 
-                        findEventByDate(generalData, d) && isUpcomingEvent(findEventByDate(generalData, d)!) ||
-                        findEventByDate(universityData, d) && isUpcomingEvent(findEventByDate(universityData, d)!) ||
-                        findEventByDate(ofpptData, d) && isUpcomingEvent(findEventByDate(ofpptData, d)!)
+                    !uniqueRanges.slice(0, index).some(r => 
+                        (findEventByRange(generalData, r) && isUpcomingEvent(findEventByRange(generalData, r)!)) ||
+                        (findEventByRange(universityData, r) && isUpcomingEvent(findEventByRange(universityData, r)!)) ||
+                        (findEventByRange(ofpptData, r) && isUpcomingEvent(findEventByRange(ofpptData, r)!))
                     )))}
                     <div class="next-separator">
                         <span class="next-label">NEXT</span>
@@ -180,7 +208,7 @@
                         </div>
                     {/if}
                     
-                    <div class="event-row {gEvent ? '' : 'empty'} 
+                    <div class="event-row col-general {gEvent ? '' : 'empty'} 
                         {gEvent && isEventInPast(gEvent) ? 'past' : ''} 
                         {gEvent && isEventCurrent(gEvent) ? 'current' : ''}">
                         {#if gEvent}
@@ -193,7 +221,7 @@
                         {/if}
                     </div>
 
-                    <div class="event-row {uEvent ? '' : 'empty'} 
+                    <div class="event-row col-university {uEvent ? '' : 'empty'} 
                         {uEvent && isEventInPast(uEvent) ? 'past' : ''} 
                         {uEvent && isEventCurrent(uEvent) ? 'current' : ''}">
                         {#if uEvent}
@@ -206,7 +234,7 @@
                         {/if}
                     </div>
 
-                    <div class="event-row {oEvent ? '' : 'empty'} 
+                    <div class="event-row col-ofppt {oEvent ? '' : 'empty'} 
                         {oEvent && isEventInPast(oEvent) ? 'past' : ''} 
                         {oEvent && isEventCurrent(oEvent) ? 'current' : ''}">
                         {#if oEvent}
@@ -219,7 +247,7 @@
                         {/if}
                     </div>
                 </div>
-                {#if isUpcoming && index < uniqueDates.length - 1}
+                {#if isUpcoming && index < uniqueRanges.length - 1}
                     <div class="row-separator"></div>
                 {/if}
             {/each}
@@ -503,24 +531,18 @@
         }
 
         .event-row {
-            display: none;
+            display: none; /* hide all by default on mobile */
         }
 
-        /* Show only active section and non-empty rows */
-        .comparison-grid[data-active-section="general"] .event-row:not(.empty):nth-child(1),
-        .comparison-grid[data-active-section="university"] .event-row:not(.empty):nth-child(2),
-        .comparison-grid[data-active-section="ofppt"] .event-row:not(.empty):nth-child(3) {
-            display: flex;
-        }
+        /* Show only the active section using stable column classes */
+        .comparison-grid[data-active-section="general"] .comparison-row .event-row.col-general:not(.empty) { display: flex; }
+        .comparison-grid[data-active-section="university"] .comparison-row .event-row.col-university:not(.empty) { display: flex; }
+        .comparison-grid[data-active-section="ofppt"] .comparison-row .event-row.col-ofppt:not(.empty) { display: flex; }
 
         /* Remove current event indicators and styling on mobile */
         .current-indicator,
         .current-tag {
             display: none;
-        }
-
-        .event-row.current {
-            display: none !important; /* Override all other display rules */
         }
 
         .event-row.current {
@@ -544,12 +566,7 @@
             margin: 1.5rem 0;
         }
 
-        /* Updated selectors for mobile view */
-        .comparison-grid[data-active-section="general"] .comparison-row .event-row:nth-child(1):not(.empty):not(.current),
-        .comparison-grid[data-active-section="university"] .comparison-row .event-row:nth-child(2):not(.empty):not(.current),
-        .comparison-grid[data-active-section="ofppt"] .comparison-row .event-row:nth-child(3):not(.empty):not(.current) {
-            display: flex;
-        }
+        /* (Replaced nth-child selectors with column classes above) */
 
         /* Hide current event styles for university and ofppt sections */
         .comparison-grid[data-active-section="university"] .comparison-row.has-current,
