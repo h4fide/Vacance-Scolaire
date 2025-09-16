@@ -1,7 +1,7 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import schoolCalendar from '../../../database/Calendrier_Scolaire.json';
+import schoolCalendar from '../../../database/2025-2026/Calendrier_Scolaire.json';
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',

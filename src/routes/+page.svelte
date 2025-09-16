@@ -2,9 +2,9 @@
     import { onDestroy } from 'svelte';
     import { selectedCalendarType, selectedFilter, updateStoredUrl } from './stores';
     import type { CalendarEvent, SchoolAndUniversityEvent, OFPPTEvent } from './types';
-    import schoolCalendar from '../database/Calendrier_Scolaire.json';
-    import universityCalendar from '../database/Calendrier_Universitaire.json';
-    import ofpptCalendar from '../database/Calendrier_OFPPT.json';
+    import schoolCalendar from '../database/2025-2026/Calendrier_Scolaire.json';
+    import universityCalendar from '../database/2025-2026/Calendrier_Universitaire.json';
+    import ofpptCalendar from '../database/2025-2026/Calendrier_OFPPT.json';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
     import '../app.css';

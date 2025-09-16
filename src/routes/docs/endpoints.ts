@@ -7,7 +7,7 @@ export const endpoints = [
         description: 'Get API information and available endpoints',
         example: `${baseUrl}`,
         response: {
-            "message": "Vacances Scolaires 2024-2025",
+            "message": "Vacances Scolaires 2025-2026",
             "endpoints": {
                 "general": {
                     "all": "/api/general",

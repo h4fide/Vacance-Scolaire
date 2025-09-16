@@ -1,7 +1,7 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import universityCalendar from '../../../../database/Calendrier_Universitaire.json';
+import universityCalendar from '../../../../database/2025-2026/Calendrier_Universitaire.json';
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',

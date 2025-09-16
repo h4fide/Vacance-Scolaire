@@ -1,0 +1,79 @@
+[
+  {
+    "_id": 1,
+    "eventname": "عيد المولد النبوي",
+    "start_date": "2025-09-04",
+    "end_date": "2025-09-05",
+    "days_number": 2
+  },
+  {
+    "_id": 2,
+    "eventname": "ذكرى المسيرة الخضراء",
+    "start_date": "2025-11-06",
+    "end_date": "2025-11-06",
+    "days_number": 1
+  },
+  {
+    "_id": 3,
+    "eventname": "عيد الاستقلال",
+    "start_date": "2025-11-18",
+    "end_date": "2025-11-18",
+    "days_number": 1
+  },
+  {
+    "_id": 4,
+    "eventname": "رأس السنة الميلادية",
+    "start_date": "2026-01-01",
+    "end_date": "2026-01-01",
+    "days_number": 1
+  },
+  {
+    "_id": 5,
+    "eventname": "ذكرى تقديم وثيقة المطالبة بالاستقلال",
+    "start_date": "2026-01-11",
+    "end_date": "2026-01-11",
+    "days_number": 1
+  },
+  {
+    "_id": 6,
+    "eventname": "رأس السنة الأمازيغية",
+    "start_date": "2026-01-14",
+    "end_date": "2026-01-14",
+    "days_number": 1
+  },
+  {
+    "_id": 7,
+    "eventname": "عطلة نهاية الفصل الأول",
+    "start_date": "2026-01-25",
+    "end_date": "2026-02-01",
+    "days_number": 8
+  },
+  {
+    "_id": 8,
+    "eventname": "عيد الفطر",
+    "start_date": "2026-03-18",
+    "end_date": "2026-03-20",
+    "days_number": "3-4"
+  },
+  {
+    "_id": 9,
+    "eventname": "عيد الشغل وعطلة فصل الربيع",
+    "start_date": "2026-05-01",
+    "end_date": "2026-05-10",
+    "days_number": 10
+  },
+  {
+    "_id": 10,
+    "eventname": "عيد الأضحى",
+    "start_date": "2026-05-26",
+    "end_date": "2026-05-29",
+    "days_number": 4
+  },
+  {
+    "_id": 11,
+    "eventname": "فاتح محرم",
+    "start_date": "2026-06-16",
+    "end_date": "2026-06-16",
+    "days_number": 1
+  }
+]

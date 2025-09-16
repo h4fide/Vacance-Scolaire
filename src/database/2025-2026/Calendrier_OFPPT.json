@@ -1,0 +1,100 @@
+[
+  {
+    "id": "1",
+    "event_name": "عيد المولد النبوي الشريف",
+    "start_date": "2025-09-04",
+    "end_date": "2025-09-05",
+    "days_number": 2
+  },
+  {
+    "id": "2",
+    "event_name": "ذكرى المسيرة الخضراء",
+    "start_date": "2025-11-06",
+    "end_date": "2025-11-06",
+    "days_number": 1
+  },
+  {
+    "id": "3",
+    "event_name": "عيد الاستقلال",
+    "start_date": "2025-11-18",
+    "end_date": "2025-11-18",
+    "days_number": 1
+  },
+  {
+    "id": "4",
+    "event_name": "عطلة الطور الأول",
+    "start_date": "2025-12-08",
+    "end_date": "2025-12-15",
+    "days_number": 8
+  },
+  {
+    "id": "5",
+    "event_name": "فاتح يناير",
+    "start_date": "2026-01-01",
+    "end_date": "2026-01-01",
+    "days_number": 1
+  },
+  {
+    "id": "6",
+    "event_name": "ذكرى تقديم وثيقة الاستقلال",
+    "start_date": "2026-01-11",
+    "end_date": "2026-01-11",
+    "days_number": 1
+  },
+  {
+    "id": "7",
+    "event_name": "عطلة رأس السنة الأمازيغية",
+    "start_date": "2026-01-14",
+    "end_date": "2026-01-14",
+    "days_number": 1
+  },
+  {
+    "id": "8",
+    "event_name": "عطلة منتصف السنة التكوينية",
+    "start_date": "2026-01-26",
+    "end_date": "2026-02-02",
+    "days_number": 8
+  },
+  {
+    "id": "9",
+    "event_name": "عطلة الطور الثاني",
+    "start_date": "2026-03-16",
+    "end_date": "2026-03-23",
+    "days_number": 8
+  },
+  {
+    "id": "10",
+    "event_name": "عيد الفطر",
+    "start_date": "2026-03-18",
+    "end_date": "2026-03-21",
+    "days_number": 4
+  },
+  {
+    "id": "11",
+    "event_name": "عيد الشغل",
+    "start_date": "2026-05-01",
+    "end_date": "2026-05-01",
+    "days_number": 1
+  },
+  {
+    "id": "12",
+    "event_name": "عطلة الطور الثالث",
+    "start_date": "2026-05-04",
+    "end_date": "2026-05-11",
+    "days_number": 8
+  },
+  {
+    "id": "13",
+    "event_name": "عيد الأضحى",
+    "start_date": "2026-05-26",
+    "end_date": "2026-05-29",
+    "days_number": 4
+  },
+  {
+    "id": "14",
+    "event_name": "فاتح محرم",
+    "start_date": "2026-06-16",
+    "end_date": "2026-06-16",
+    "days_number": 1
+  }
+]
